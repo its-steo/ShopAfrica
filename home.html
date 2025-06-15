@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopEase - Your Ultimate Shopping Experience</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Reset & Base */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(90deg, #3703f5, #04c3fd);
+      color: white;
+      padding: 10px 5px;
+      animation: fade-in 1s ease-in-out;
+    }
+
+    .highlight {
+      color: #ffd700;
+    }
+
+    /* Button */
+    button {
+      background: #2600ff;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      animation: pulse 2s infinite;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    /* Scrolling Banner Styles */
+.scroll-banner {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.scroll-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-left 30s linear infinite;
+}
+
+.scroll-track img {
+  width: 300px;
+  height: auto;
+  margin: 0 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation */
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+    /* Features Section */
+
+/* Enhanced Features Section */
+/* Enhanced Features Section - Full Width and More Detail */
+.features {
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 30px 10px;
+  background: linear-gradient(to right, #fff, #f0f0f0);
+}
+.feature video {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.feature {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  flex: 1 1 30%;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  max-width: 400px;
+}
+
+.feature:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.feature img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.feature h3 {
+  font-size: 24px;
+  color: black;
+  margin-bottom: 15px;
+}
+
+.feature p {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* Animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes bounce-in {
+  0% { transform: scale(0.8); opacity: 0; }
+  60% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.fade-in { animation-name: fade-in; }
+.slide-up { animation-name: slide-up; }
+.bounce-in { animation-name: bounce-in; }
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .feature {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+
+    .products {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 20px 0;
+      scroll-behavior: smooth;
+    }
+
+    .product {
+      min-width: 250px;
+      background: #fafafa;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      scroll-snap-align: start;
+      animation: slide-up 1s ease-in-out;
+    }
+
+    .product img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      animation: fade-in 1s ease-in-out;
+    }
+
+    /* Animations */
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slide-up {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .features {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .product {
+        min-width: 80%;
+      }
+    }
+.site-footer {
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    padding: 20px 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    border-top: 3px solid #ff6600;
+    margin-top: 40px;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Full width footer */
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-icons {
+    margin-bottom: 10px;
+}
+.site-footer strong {
+    color: #ff6600; /* highlight the brand */
+}
+
+.footer-icons a {
+    margin: 0 8px;
+    display: inline-block;
+}
+
+.footer-icons img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.footer-icons img:hover {
+    transform: scale(1.1); /* optional hover effect */
+}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to <span class="highlight">ShopEase</span></h1>
+    <p>Enjoy a seamless shopping experience with us!</p>
+  </header>
+
+  <main>
+ <!-- Banner Section with Scrolling Images -->
+<section class="banner">
+  <h2 style="animation: bounce 1.5s infinite;">Exclusive Deals Await!</h2>
+
+  <div class="scroll-banner">
+    <div class="scroll-track">
+      <img src="image/image7.jpg" alt="Banner 1" />
+      <img src="image/image8.jpg" alt="Banner 2" />
+      <img src="image/image9.jpg" alt="Banner 3" />
+      <img src="image/image41.png" alt="Banner 4" />
+      <img src="image/image5.jpg" alt="Banner 5" />
+      <img src="image/image10.jpg" alt="Banner 6" />
+    </div>
+  </div>
+
+  <button onclick="startShopping()">Proceed to Shopping</button>
+</section>
+
+
+    <!-- Features Section -->
+<section class="features">
+<div class="feature slide-up">
+  <video autoplay muted loop playsinline style="width: 100%; border-radius: 10px;">
+    <source src="video/video1.mp4" type="video/mp4" />
+  </video>
+  <h3>Free Delivery</h3>
+  <p>Say goodbye to shipping fees! At ShopEase, we offer free delivery on all eligible orders — no minimum purchase required. Whether you’re shopping for daily essentials or big-ticket items, we’ll get them to your doorstep quickly and at no extra cost.</p>
+</div>
+
+
+<div class="feature slide-up">
+  <video autoplay muted loop playsinline style="width: 100%; border-radius: 10px;">
+    <source src="video/video2.mp4" type="video/mp4" />
+  </video>
+  <h3>Product Offers</h3>
+  <p>Discover amazing deals on a wide range of products. From electronics to fashion, we have something for everyone at unbeatable prices.</p>
+</div>
+
+  <div class="feature slide-up">
+  <video autoplay muted loop playsinline style="width: 100%; border-radius: 10px;">
+    <source src="video/video3.mp4" type="video/mp4" />
+  </video>
+  <h3>Product Offers</h3>
+  <p>Discover amazing deals on a wide range of products. From electronics to fashion, we have something for everyone at unbeatable prices.</p>
+</div>
+</section>
+
+
+    <!-- Product Showcase -->
+    <section class="product-showcase">
+      <h2>Top Picks for You</h2>
+      <div class="products">
+        <div class="product">
+          <img src="image/image11.jpg" alt="Product 1" />
+          <p><b>Apple Products</b></p>
+          <p>10% off for first-time buyers!</p>
+          <p>Get ready to elevate your tech game with our latest gadget! Packed with features and designed for convenience, this is a must-have for every tech enthusiast.</p>
+        </div>
+        <div class="product">
+          <img src="image/image12.jpg" alt="Product 2" />
+          <p><b>Luis-Vuitton Product</b></p>
+          <p>Exclusive collection available now! Get yours today! Cheap luxury at your fingertips.</p>
+        </div>
+        <div class="product">
+          <img src="image/image13.jpg" alt="Product 3" />
+          <p><b>Muff Hoodie</b></p>
+            <p>Stay cozy and stylish with our new Muff Hoodie. Perfect for any season! latest fashion trends await you.</p>
+        </div>
+        <div class="product">
+          <img src="image/image14.jpg" alt="Product 4" />
+          <p><b>Android Tv</b></p>
+          <p>Experience the future of entertainment with our Android TV. Stream your favorite shows and movies in stunning quality!</p>
+        </p>
+        </div>
+        <div class="product">
+          <img src="image/image15.jpg" alt="Product 5" />
+          <p><b>Fashion Backpack</b></p>
+          <p>Stay organized and stylish with our Fashion Backpack. Perfect for school, work, or travel!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+    <footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-icons">
+            <a href="https://www.facebook.com" target="_blank"><img src="image/facebook.png" alt="Facebook"></a>
+            <a href="https://www.twitter.com" target="_blank"><img src="image/twitter.png" alt="Twitter"></a>
+            <a href="https://www.instagram.com" target="_blank"><img src="image/social.png" alt="Instagram"></a>
+            <a href="https://www.linkedin.com" target="_blank"><img src="image/linkedin.png" alt="LinkedIn"></a>
+         
+        </div>
+        <p>&copy; 2025 <strong>ShopEase</strong> - Your Online Store</p>
+    </div>
+  <script>
+    function startShopping() {
+      window.location.href = "index.html";
+    }
+
+
+    document.querySelector("#start-shopping").addEventListener("click", startShopping);
+  </script>
+</body>
+</html>

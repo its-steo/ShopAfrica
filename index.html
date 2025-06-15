@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopEase</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>ShopEase</h1>
+        <nav>
+            <ul>
+                <li><a href="#" id="home">Home</a></li>
+                <li><a href="#About">About</a></li>
+                <li><a href="#" id="Wallet">Wallet</a></li>
+                <li><a href="#" id="Support">Support</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="logo-container">
+            <img class="logo" src="image/logo1.png" alt="ShopEase Logo">
+        </div>
+        <div class="search-container">
+            <h1 class="title">ShopEase - Your Online Store</h1>
+            <input class="search-bar" type="text" placeholder="Search for products...">
+            <button class="search-button">Search</button>
+        </div>
+        <div class="cart">
+            <a href="#cart"><img class="cart-icon" src="image/icons8-cart-48.png" alt="Cart Icon"></a>
+            <span>Cart(0)</span>
+        </div>
+    </div>
+
+<main>
+        <h2>Featured Products</h2>
+        <label for="categoryFilter">Filter by Category:</label>
+        <select id="categoryFilter">
+           <option value="all">All</option>
+           <option value="clothing">Clothing</option>
+           <option value="electronics">Electronics</option>
+           <option value="furniture">Furniture</option>
+           <option value="books">Books</option>
+           <option value="food">Food</option>
+           <option value="sports">Sports</option>
+           <option value="beauty">Beauty</option>
+           <option value="jewelry">Jewelry</option>
+           <option value="tools">Tools</option>
+
+        </select>
+
+         <label for="currency-select">Choose Currency:</label>
+<select id="currency-select">
+  <option value="USD" selected>USD</option>
+  <option value="KES">KES</option>
+  <option value="EUR">EUR</option>
+  <option value="TSH">TSH</option>
+  <option value="UGX">UGX</option>
+</select>
+        
+<div>
+
+<div class="product-list">
+  <div class="product" data-category="clothing" data-price="20.99" data-stock="100" data-clicks="0">
+    <img src="image/product1.jpg" alt="Product 1">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $20.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+  <div class="product" data-category="electronics" data-price="999.99" data-stock="100" data-clicks="0">
+    <img src="image/elect1.png" alt="Product 2">
+    <h3>Iphone 16 Promax series</h3>
+    <p>Brand New iphones at a cheaper price.All colours available. 256GB storage.Get yours today.</p>
+    <p class="price"><b>Price:</b> $999.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+   <div class="product" data-category="electronics" data-price="769.00" data-stock="100" data-clicks="0">
+    <img src="image/elect2-removebg-preview.png" alt="Product 2">
+    <h3>Iphone 16 series</h3>
+    <p>Brand New Iphone 16 at a cheaper price.All colours available and all storage capacity available.Get yours today!</p>
+    <p class="price"><b>Price:</b> $769.00</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+   <div class="product" data-category="electronics" data-price="385.99" data-stock="100" data-clicks="0">
+    <img src="image/elect3-removebg-preview.png" alt="Product 2">
+    <h3>Iphone 14 Promax Ex-UK</h3>
+    <p>Best EX-UK product with 24 months warranty.All specification are working perfectly,battery health is at 100%.256GB storage with a ram of 8GB.</p>
+    <p class="price"><b>Price:</b> $385.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+   <div class="product" data-category="electronics" data-price="349.99" data-stock="100" data-clicks="0">
+    <img src="image/elect4-removebg-preview.png" alt="Product 2">
+    <h3>Iphone 13 Promax Pre-owned</Pre-owned></h3>
+    <p>One month used iphone 13 promax.Battery health is at 99%.Storage of 256GB with a Ram of 8GB.No damage on the screen and back.its is supper cool you can get it at a cheaper price.</p>
+    <p class="price"><b>Price:</b> $349.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+   <div class="product" data-category="electronics" data-price="579.99" data-stock="100" data-clicks="0">
+    <img src="image/elect5-removebg-preview.png" alt="Product 2">
+    <h3>Iphone 15 Promax Pre-Owned</h3>
+    <p>Powerful device with a storage of 512GB. 3months in use. No physical damage on the phone.Battery Health is at 96%.make order today.</p>
+    <p class="price"><b>Price:</b> $579.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+   <div class="product" data-category="electronics" data-price="720.00" data-stock="100" data-clicks="0">
+    <img src="image/elect6-removebg-preview.png" alt="Product 2">
+    <h3>Sumsung Galaxy S25 ultra</h3>
+    <p>Samsung Galaxy S25 Ultra, 2nd-hand – powerful flagship with 200MP camera, stunning display, great condition, budget-friendly deal.
+.</p>
+    <p class="price"><b>Price:</b> $720.00</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="850.00" data-stock="100" data-clicks="0">
+    <img src="image/elect7-removebg-preview.png" alt="Product 2">
+    <h3>Sumsung Galaxy S25 Ultra</h3>
+    <p>The brand new Samsung Galaxy S25 Ultra features a sleek design, 200MP pro-grade camera, ultra-fast processor, vibrant AMOLED display, long battery life, and cutting-edge technology for ultimate performance.
+.</p>
+    <p class="price"><b>Price:</b> $850.00</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="705.99" data-stock="100" data-clicks="0">
+    <img src="image/elect8-removebg-preview.png" alt="Product 2">
+    <h3>Sumsung Galaxy S24 Ultra</h3>
+    <p>The Samsung Galaxy S24 Ultra boasts a stunning AMOLED display, powerful Snapdragon processor, 200MP camera, sleek titanium frame, long-lasting battery, advanced AI features, and S Pen support for peak productivity.
+.</p>
+    <p class="price"><b>Price:</b> $705.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="680.99" data-stock="100" data-clicks="0">
+    <img src="image/elect9-removebg-preview.png" alt="Product 2">
+    <h3>Sumsung Galaxy S24 Ultra</h3>
+    <p>Samsung Galaxy S24 Ultra: 200 MP camera, vibrant AMOLED display, Snapdragon powerhouse, 256 GB storage, premium titanium build, responsive S Pen, long-lasting battery.</p>
+    <p class="price"><b>Price:</b> $680.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="600.00" data-stock="100" data-clicks="0">
+    <img src="image/elect10-removebg-preview.png" alt="Product 2">
+    <h3>Sumsung Galaxy S23 Ultra</h3>
+    <p>Samsung Galaxy S23 Ultra: premium flagship with 200 MP camera, stunning AMOLED display, 256 GB storage, powerful Snapdragon 8 Gen 2, sleek design, long-lasting battery.
+.</p>
+    <p class="price"><b>Price:</b> $600.00</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="400.99" data-stock="100" data-clicks="0">
+    <img src="image/elect11-removebg-preview.png" alt="Product 2">
+    <h3>Sumsung Galaxy S23 Ultra</h3>
+    <p>Samsung Galaxy S23 Ultra (2nd‑hand): flagship performance, 200 MP camera, vibrant AMOLED, 256 GB storage, Snapdragon 8 Gen 2, sleek design, great value.</p>
+    <p class="price"><b>Price:</b> $400.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="800.00" data-stock="100" data-clicks="0">
+    <img src="image/elect12-removebg-preview.png" alt="Product 2">
+    <h3>Sumsung Galaxy Z Fold 6</h3>
+    <p>Discover the groundbreaking Samsung Galaxy Z Fold 6, available $800! Explore its innovative features and advanced design today.</p>
+    <p class="price"><b>Price:</b> $800.00</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect13-removebg-preview.png" alt="Product 2">
+    <h3>Sumsung Galaxy Z Fold 3</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect14-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect15-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect16-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect17-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect18-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect20-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect21-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect22-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect23-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect24-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect25-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+  
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect26-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect27-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect28-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect29-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect30-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+   <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect31-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect32-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect33-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect34-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect35-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect36-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect37-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect38-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect39-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect40-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect41-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect42-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect43-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect44-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect45-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect46-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+     <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect47.jpg" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+   <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect48.jpg" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+    <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect49.jpg" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+    <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect50.jpg" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+    <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect51.jpg" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+    <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect52.jpg" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+    <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect53.jpg" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+    <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect54.jpg" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+    <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect55.jpg" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+    <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect56-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+    <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect57-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+    <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect58-removebg-preview.png" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+    <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect59.jpg" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+
+    <div class="product" data-category="electronics" data-price="499.99" data-stock="100" data-clicks="0">
+    <img src="image/elect60.jpg" alt="Product 2">
+    <h3>Los Angeles Hoodies</h3>
+    <p>Stylish and comfortable hoodies from Los Angeles.</p>
+    <p class="price"><b>Price:</b> $499.99</p>
+    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+    <button class="Add-btn">Add to Cart</button>
+    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+  </div>
+</div>
+
+        </div>
+    </div>
+    </main>
+
+    
+    <script>
+    const filter = document.getElementById('categoryFilter');
+    const products = document.querySelectorAll('.product');
+
+    filter.addEventListener('change', function () {
+        const selectedCategory = this.value;
+        products.forEach(product => {
+            const category = product.getAttribute('data-category');
+            if (selectedCategory === 'all' || category === selectedCategory) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    });
+// Currency conversion functionality
+const conversionRates = {
+  USD: 1,
+  KES: 130.50,
+  EUR: 0.92,
+  TSH: 2595,
+  UGX: 3675,
+};
+
+let selectedCurrency = 'USD';
+
+document.getElementById('currency-select').addEventListener('change', function () {
+  selectedCurrency = this.value;
+  updatePrices();
+});
+
+function updatePrices() {
+  document.querySelectorAll('.product').forEach(product => {
+    const basePrice = parseFloat(product.dataset.price);
+    const converted = basePrice * conversionRates[selectedCurrency];
+    const formatted = formatCurrency(converted, selectedCurrency);
+    product.querySelector('.price').innerHTML = `<b>Price:</b> ${formatted}`;
+  });
+}
+
+function formatCurrency(amount, currency) {
+  return amount.toLocaleString('en-US', {
+    style: 'currency',
+    currency: currency
+  });
+}
+
+const cartItems = document.getElementById('cart-items');
+
+document.querySelectorAll('.Add-btn').forEach(button => {
+  button.addEventListener('click', function () {
+    const product = this.closest('.product');
+    const title = product.querySelector('h3').textContent;
+    const basePrice = parseFloat(product.dataset.price);
+    const convertedPrice = basePrice * conversionRates[selectedCurrency];
+    const formattedPrice = formatCurrency(convertedPrice, selectedCurrency);
+    
+    const listItem = document.createElement('li');
+    listItem.textContent = `${title} - ${formattedPrice}`;
+    cartItems.appendChild(listItem);
+  });
+});
+
+</script>
+
+ <footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-icons">
+            <a href="https://www.facebook.com" target="_blank"><img src="image/facebook.png" alt="Facebook"></a>
+            <a href="https://www.twitter.com" target="_blank"><img src="image/twitter.png" alt="Twitter"></a>
+            <a href="https://www.instagram.com" target="_blank"><img src="image/social.png" alt="Instagram"></a>
+            <a href="https://www.linkedin.com" target="_blank"><img src="image/linkedin.png" alt="LinkedIn"></a>
+         
+        </div>
+        <p>&copy; 2025 <strong>ShopEase</strong> - Your Online Store</p>
+    </div>
+
+</body>
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartContainer = document.querySelector(".cart");
+    const addButtons = document.querySelectorAll(".Add-btn");
+    const currencySelect = document.getElementById("currency-select");
+
+    // Conversion rates
+    const conversionRates = {
+        USD: 1,
+        KES: 130.50,
+        EUR: 0.92,
+        TSH: 2595,
+        UGX: 3675,
+    };
+
+    // Helper: format number as currency
+    function formatCurrency(amount, currency) {
+        return amount.toLocaleString('en-US', {
+            style: 'currency',
+            currency: currency
+        });
+    }
+
+    // Add to cart button handler
+    addButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const selectedCurrency = currencySelect.value;
+            const product = this.closest(".product");
+            const productName = product.querySelector("h3").textContent;
+            const basePrice = parseFloat(product.dataset.price);
+            const convertedPrice = basePrice * conversionRates[selectedCurrency];
+            const formattedPrice = formatCurrency(convertedPrice, selectedCurrency);
+            const productImage = product.querySelector("img").src;
+
+            // Add product to cart
+            cart.push({
+                name: productName,
+                price: convertedPrice,
+                currency: selectedCurrency,
+                formattedPrice: formattedPrice,
+                image: productImage
+            });
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCart();
+
+            // ✅ Visual feedback
+            button.innerHTML = "<img src='image/icons8-check-48.png' alt='Added' style='width: 30px; height: 30px;'>";
+            button.disabled = true;
+            button.style.backgroundColor = "#28a745";
+
+            const msg = product.querySelector(".added-msg");
+            msg.textContent = "✅ Item added to cart!";
+            msg.style.display = "block";
+
+            // Optional: hide message after a few seconds or keep it
+            setTimeout(() => {
+                msg.style.display = "none";
+                button.innerHTML = "Add to Cart";
+                button.disabled = false;
+                button.style.backgroundColor = ""; // reset
+            }, 2000);
+        });
+    });
+
+    function updateCart() {
+        const cartCount = document.querySelector(".cart span");
+        if (cartCount) {
+            cartCount.textContent = `Cart (${cart.length})`;
+        }
+    }
+
+    updateCart();
+
+    // Redirects
+    document.querySelector(".cart-icon")?.addEventListener("click", () => {
+        window.location.href = "cart.html";
+    });
+
+    document.querySelector(".search-button")?.addEventListener("click", () => {
+        const searchQuery = document.querySelector(".search-bar").value.toLowerCase();
+        const products = document.querySelectorAll(".product");
+
+        products.forEach(product => {
+            const productName = product.querySelector("h3").textContent.toLowerCase();
+            product.style.display = productName.includes(searchQuery) ? "block" : "none";
+        });
+    });
+
+    document.querySelector("#Wallet")?.addEventListener("click", () => {
+        window.location.href = "delivery.html";
+    });
+
+    document.querySelector("#home")?.addEventListener("click", () => {
+        window.location.href = "home.html";
+    });
+
+    document.querySelector("#products")?.addEventListener("click", () => {
+        window.location.href = "index.html";
+    });
+    document.querySelector("#Support")?.addEventListener("click", () => {
+        window.location.href = "support.html";
+    });
+});
+
+  const maxClicks = 100;
+  const restockTime = 30 * 60 * 1000; // 30 minutes in milliseconds
+
+  function updateStockStatus(productEl) {
+    const stock = parseInt(productEl.dataset.stock);
+    const stockText = productEl.querySelector(".stock-text");
+    const button = productEl.querySelector(".Add-btn");
+
+    if (stock <= 0) {
+      stockText.textContent = "Out of Stock - Will restock in 30 minutes";
+      stockText.style.color = "red";
+      button.disabled = true;
+      setTimeout(() => {
+        productEl.dataset.stock = maxClicks;
+        productEl.dataset.clicks = 0;
+        stockText.textContent = "In Stock";
+        stockText.style.color = "green";
+        button.disabled = false;
+      }, restockTime);
+    } else {
+      stockText.textContent = "In Stock";
+      stockText.style.color = "green";
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll(".Add-btn").forEach(button => {
+    button.addEventListener("click", function () {
+      const productEl = this.closest(".product");
+      let clicks = parseInt(productEl.dataset.clicks);
+      let stock = parseInt(productEl.dataset.stock);
+
+      if (stock > 0 && clicks < maxClicks) {
+        clicks++;
+        productEl.dataset.clicks = clicks;
+        productEl.dataset.stock = maxClicks - clicks;
+
+        const msg = productEl.querySelector(".added-msg");
+        msg.textContent = "Added to Cart!";
+        msg.style.display = "block";
+        setTimeout(() => msg.style.display = "none", 2000);
+      }
+
+      updateStockStatus(productEl);
+    });
+  });
+
+  // Initialize stock status on load
+  document.querySelectorAll(".product").forEach(productEl => {
+    updateStockStatus(productEl);
+  });
+
+
+
+</script>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://127.0.0.1:5500/payment.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment - ShopEase</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: blue;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    main {
+      max-width: 1000px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    .payment-method {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 30px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .payment-method:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .payment-method img {
+      max-width: 150px;
+      margin-bottom: 15px;
+    }
+    .pay-btn {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .pay-btn:hover {
+      background-color: #218838;
+    }
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 10px auto;
+      display: none;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .converted {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Choose Payment Method</h1>
+    <p>Total Amount: <strong id="cart-total-display">$0.00</strong></p>
+
+    <nav style="width: 100%; text-align: right; margin-bottom: 10px;">
+  <a href="http://127.0.0.1:5500/cart.html" style="text-decoration: none; color: #4caf50; font-weight: bold;">
+    🛒 Back to Cart
+  </a>
+</nav>
+  </header>
+
+  <main>
+    <!-- Currency Conversion -->
+    <div style="margin-bottom: 30px; text-align: center;">
+      <label for="currency">Convert total to: </label>
+      <select id="currency">
+        <option value="KES">KES (Kenyan Shilling)</option>
+        <option value="EUR">EUR (Euro)</option>
+        <option value="GBP">GBP (British Pound)</option>
+        <option value="INR">INR (Indian Rupee)</option>
+        <option value="USD">USD (US Dollar)</option>
+        <option value="TSH">TSH (Tanzanian Shilling)</option>
+      </select>
+      <button class="pay-btn" onclick="convertCurrency()">Convert</button>
+      <p class="converted" id="converted-amount"></p>
+    </div>
+
+    <!-- M-Pesa -->
+<div class="payment-method" id="mpesa-section">
+  <img src="./Payment - ShopEase_files/mpesa.jpg" alt="M-Pesa Logo">
+  <h3>M-Pesa Payment</h3>
+  <p>Send money to Till Number <strong>3526578</strong></p>
+  <p><strong>Amount:</strong> <span id="mpesa-amount">$0.00</span></p>
+
+  <label for="mpesa-message">Paste your M-Pesa Message:</label><br>
+  <textarea id="mpesa-message" rows="4" placeholder="e.g. QJE4H3G32 Confirmed. Ksh 1,000.00 sent..." style="padding: 10px; margin: 10px 0; width: 80%; border-radius: 5px; border: 1px solid #ccc;"></textarea><br>
+
+  <div class="loader" id="loader-mpesa"></div>
+  <button class="pay-btn" onclick="submitMpesa()">Submit M-Pesa Message</button>
+
+  <div id="mpesa-success" style="display: none; color: green; font-weight: bold; margin-top: 15px;">
+    ✅ Your message has been submitted successfully!
+  </div>
+</div>
+
+    <!-- Bank Transfer -->
+    <div class="payment-method">
+      <img src="./Payment - ShopEase_files/equity.jpg" alt="Bank Transfer">
+      <h3>Bank Transfer</h3>
+      <p>Account Name: <strong>ShopEase Ltd</strong><br>
+         Account Number: <strong>9876543210</strong><br>
+         Bank: <strong>Equity Bank</strong><br>
+         Branch: <strong>Westlands</strong></p>
+      <p><strong>Amount:</strong> <span id="bank-amount">$0.00</span></p>
+      <div class="loader" id="loader-bank"></div>
+      <button class="pay-btn" onclick="simulatePayment(&#39;loader-bank&#39;)">Pay via Bank</button>
+    </div>
+
+    <!-- PayPal -->
+    <div class="payment-method">
+      <img src="./Payment - ShopEase_files/paypal.gif" alt="PayPal Logo">
+      <h3>PayPal</h3>
+      <p>Send payment to: <strong>payments@shopease.com</strong><br>Use your Order ID as the payment reference.</p>
+      <p><strong>Amount:</strong> <span id="paypal-amount">$0.00</span></p>
+      <div class="loader" id="loader-paypal"></div>
+      <button class="pay-btn" onclick="simulatePayment(&#39;loader-paypal&#39;)">Pay with PayPal</button>
+    </div>
+
+    <!-- Binance -->
+    <div class="payment-method">
+      <img src="./Payment - ShopEase_files/binance.png" alt="Binance Logo">
+      <h3>Binance (Crypto)</h3>
+      <p>Send USDT (TRC20) to: <strong>TV3x4Ecz8Nax7PKUYwEXAMPLE</strong><br>Contact support after transfer.</p>
+      <p><strong>Amount:</strong> <span id="binance-amount">$0.00</span></p>
+      <div class="loader" id="loader-binance"></div>
+      <button class="pay-btn" onclick="simulatePayment(&#39;loader-binance&#39;)">Pay with Binance</button>
+    </div>
+
+  </main>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+  <footer>
+    © 2025 <strong>ShopEase</strong> — Secure Payments
+  </footer>
+
+<script>
+  let totalUSD = 0;
+  let selectedCurrency = 'USD';
+
+  const rates = {
+    TSH: 2595,
+    KES: 130,
+    EUR: 0.92,
+    GBP: 0.79,
+    INR: 83,
+    USD: 1
+  };
+
+  const symbols = {
+    TSH: 'TSh',
+    KES: 'KSh',
+    EUR: '€',
+    GBP: '£',
+    INR: '₹',
+    USD: '$'
+  };
+
+ document.addEventListener("DOMContentLoaded", function () {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if (cart.length === 0) {
+    document.getElementById("cart-total-display").textContent = "Your cart is empty.";
+    return;
+  }
+
+  // Group totals by currency
+  const totalsByCurrency = {};
+  cart.forEach(item => {
+    if (!totalsByCurrency[item.currency]) totalsByCurrency[item.currency] = 0;
+    totalsByCurrency[item.currency] += item.price;
+  });
+
+  // Prepare display text
+  const totalText = Object.entries(totalsByCurrency)
+    .map(([currency, amount]) => formatCurrency(amount, currency))
+    .join(" + ");
+
+  // Update amounts
+  document.getElementById("cart-total-display").textContent = totalText;
+  document.getElementById("mpesa-amount").textContent = totalText;
+  document.getElementById("bank-amount").textContent = totalText;
+  document.getElementById("paypal-amount").textContent = totalText;
+  document.getElementById("binance-amount").textContent = totalText;
+
+  document.getElementById("converted-amount").textContent = `Total: ${totalText}`;
+  updateWalletBalanceDisplay();
+});
+
+
+  function convertCurrency() {
+    selectedCurrency = document.getElementById("currency").value;
+    updateAllAmounts();
+  }
+
+function submitMpesa() {
+  const message = document.getElementById('mpesa-message').value.trim();
+  const loader = document.getElementById('loader-mpesa');
+  const successMsg = document.getElementById('mpesa-success');
+
+  const amountRegex = /(?:Ksh|KES)?\s?([\d,]+\.\d{2})/i;
+  const mpesaPattern = /(confirmed|sent|received|completed)/i;
+
+  // Validate M-Pesa message
+  if (!mpesaPattern.test(message) || !amountRegex.test(message)) {
+    alert("❌ Enter a valid M-Pesa message.");
+    return;
+  }
+
+  // Extract amount
+  const match = message.match(amountRegex);
+  if (!match || !match[1]) {
+    alert("❌ Could not detect a valid amount in your message.");
+    return;
+  }
+
+  const amountFromMessage = parseFloat(match[1].replace(/,/g, ''));
+  const rate = rates[selectedCurrency];
+  const cartAmount = totalUSD * rate;
+
+  loader.style.display = "block";
+
+  setTimeout(() => {
+    loader.style.display = "none";
+
+    const balance = amountFromMessage - cartAmount;
+
+    if (balance >= 0) {
+      successMsg.textContent = "✅ Payment successfully received!";
+      successMsg.style.color = "green";
+      successMsg.style.display = "block";
+
+      localStorage.removeItem("cart");
+
+      // Save balance in localStorage
+      localStorage.setItem("userBalance", balance.toFixed(2));
+
+      setTimeout(() => {
+        window.location.href = "delivery.html";
+      }, 3000);
+    } else {
+      successMsg.textContent = "❌ Please deposit the required amount. Insufficient to purchase all products. Please top up.";
+      successMsg.style.color = "red";
+      successMsg.style.display = "block";
+    }
+  }, 2500);
+}
+
+function simulatePayment(loaderId) {
+  const loader = document.getElementById(loaderId);
+  loader.style.display = "block";
+
+  setTimeout(() => {
+    loader.style.display = "none";
+    alert("✅ Payment successful! Thank you for your purchase.");
+    window.location.href = "delivery.html"; // Redirect to delivery page
+  }, 2500);
+}
+
+</script>
+
+   
+</body></html>

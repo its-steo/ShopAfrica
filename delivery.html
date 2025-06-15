@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery Information</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+    }
+    .navbar {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2e7d32;
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 5px;
+  background-color: #4caf50;
+}
+
+.navbar nav a:hover {
+  background-color: #45a049;
+}
+
+
+    .card {
+      background: linear-gradient(135deg, #4caf50, #2e7d32);
+      color: white;
+      max-width: 400px;
+      width: 100%;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-container, .deposit-form, .withdraw-form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .form-container h3,
+    .deposit-form h3,
+    .withdraw-form h3 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px;
+      margin-top: 15px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .hidden {
+      display: none;
+    }
+    .delivery-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background: #fafafa;
+}
+
+.delivery-card img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.delivery-info {
+  flex-grow: 1;
+}
+
+.delivery-info p {
+  margin: 2px 0;
+}
+
+.delivery-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  width: 250px;
+  position: relative;
+}
+
+.progress-container {
+  width: 100%;
+  background: #eee;
+  border-radius: 5px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 10px;
+  width: 0%;
+  background: #4caf50;
+  transition: width 0.5s;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-left: 5px;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.active-dot {
+  background-color: rgb(0, 255, 110);
+  animation: beep 1s infinite;
+}
+
+@keyframes beep {
+  0% { opacity: 1; }
+  50% { opacity: 0.2; }
+  100% { opacity: 1; }
+}
+
+/* Bright status text */
+#delivery-cards p {
+  font-weight: bold;
+}
+
+/* Progress bar animation */
+.progress-bar {
+  height: 10px;
+  background-color: limegreen;
+  transition: width 0.5s ease;
+}
+
+/* Pulsing dot */
+.dot {
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background-color: limegreen;
+  margin-left: 8px;
+}
+
+.active-dot {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.popup {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  background-color: white;
+  border: 2px solid #4CAF50;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  padding: 20px;
+  z-index: 9999;
+  display: none;
+  border-radius: 8px;
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.popup button {
+  margin-top: 15px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.popup button:hover {
+  background-color: #45a049;
+}
+
+.hidden {
+  display: none;
+}
+
+
+
+
+  </style>
+</head>
+<body>
+    <header class="navbar">
+  <div class="brand">ShopEase</div>
+  <nav>
+    <a href="home.html">Home</a>
+  </nav>
+</header>
+
+
+  <div class="card">
+    <h2>Wallet Balance</h2>
+    <p id="balance">KES 0.00</p>
+    <button onclick="showDepositForm()">Deposit</button>
+    <button onclick="showWithdrawForm()">Withdraw</button>
+  </div>
+
+<div class="form-container">
+  <h3>Delivery Information</h3>
+
+  <label for="location">Your Location:</label>
+  <input type="text" id="location" placeholder="e.g. Nairobi, South B">
+
+  <label for="phone">Your Phone Number:</label>
+  <input type="text" id="user-phone" placeholder="e.g. 0712345678">
+
+  <label for="delivery-guy">Select Delivery Person:</label>
+  <select id="delivery-guy">
+    <option value="">-- Choose Delivery Person --</option>
+  </select>
+
+  <button onclick="payForDelivery()">Pay for Delivery</button>
+</div>
+
+<div class="form-container" id="delivery-list">
+  <h3>Available Delivery Personnel</h3>
+  <div id="delivery-cards"></div>
+</div>
+
+  <div class="deposit-form hidden" id="depositForm">
+    <h3>Deposit Instructions</h3>
+    <p>Go to Mpesa → Lipa na Mpesa → Buy Goods and Services → Till Number: <strong>3526578</strong></p>
+    <label for="mpesa-message">Enter Mpesa Message:</label>
+    <input type="text" id="mpesa-message" placeholder="e.g. QJE4Y65Y Confirmed. Ksh500.00 sent to...">
+    <button onclick="processDeposit()">Confirm Deposit</button>
+  </div>
+
+  <div class="withdraw-form hidden" id="withdrawForm">
+    <h3>Withdraw Funds</h3>
+    <label for="withdraw-amount">Amount to Withdraw:</label>
+    <input type="number" id="withdraw-amount" placeholder="e.g. 200">
+    <label for="mpesa-number">Mpesa Number:</label>
+    <input type="text" id="mpesa-number" placeholder="e.g. 0712345678">
+    <button onclick="processWithdraw()">Withdraw Now</button>
+  </div>
+
+  <div id="delivery-popup" class="popup hidden">
+  <div class="popup-content">
+    <p>🎉 Your package has been delivered successfully. Thank you for shopping with us!</p>
+    <button onclick="dismissPopup()">Dismiss</button>
+  </div>
+</div>
+
+</body>
+
+  <script>
+  const balanceElement = document.getElementById('balance');
+
+  function getWalletBalance() {
+    return parseFloat(localStorage.getItem("userBalance")) || 0;
+  }
+
+  function updateWalletBalanceDisplay() {
+    const balance = getWalletBalance();
+    balanceElement.textContent = "KES " + balance.toLocaleString("en-KE", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+
+  function showDepositForm() {
+    document.getElementById("depositForm").classList.remove("hidden");
+    document.getElementById("withdrawForm").classList.add("hidden");
+  }
+
+  function showWithdrawForm() {
+    document.getElementById("withdrawForm").classList.remove("hidden");
+    document.getElementById("depositForm").classList.add("hidden");
+  }
+
+  function processDeposit() {
+    const message = document.getElementById("mpesa-message").value.trim();
+    const amountRegex = /(?:Ksh|KES)?\s?([\d,]+\.\d{2})/i;
+    const match = message.match(amountRegex);
+
+    if (match) {
+      const amount = parseFloat(match[1].replace(",", ""));
+      let balance = getWalletBalance();
+      balance += amount;
+      localStorage.setItem("userBalance", balance.toFixed(2));
+      updateWalletBalanceDisplay();
+      alert(`✅ Deposit of KES ${amount.toFixed(2)} successful.`);
+      document.getElementById("mpesa-message").value = "";
+      document.getElementById("depositForm").classList.add("hidden");
+    } else {
+      alert("❌ Could not extract amount from Mpesa message. Please check the format.");
+    }
+  }
+
+  function processWithdraw() {
+    const amount = parseFloat(document.getElementById("withdraw-amount").value);
+    const phone = document.getElementById("mpesa-number").value.trim();
+    let balance = getWalletBalance();
+
+    if (!amount || !phone) {
+      alert("❌ Please enter both amount and Mpesa number.");
+      return;
+    }
+
+    if (amount > balance) {
+      alert("❌ Insufficient balance.");
+      return;
+    }
+
+    balance -= amount;
+    localStorage.setItem("userBalance", balance.toFixed(2));
+    updateWalletBalanceDisplay();
+    alert(`✅ Withdrawal of KES ${amount.toFixed(2)} to ${phone} processed.`);
+    document.getElementById("withdraw-amount").value = "";
+    document.getElementById("mpesa-number").value = "";
+    document.getElementById("withdrawForm").classList.add("hidden");
+  }
+
+  const deliveryPersons = [
+    {
+      username: "Brian_Rider",
+      phone: "0711002000",
+      charge: 150,
+      image: "image/brian.jpg"
+    },
+    {
+      username: "MercyWheels",
+      phone: "0722345678",
+      charge: 180,
+      image: "image/mercy.jpg"
+    },
+    {
+      username: "MotoFastGuy",
+      phone: "0700112233",
+      charge: 200,
+      image: "image/motofastguy.jpg"
+    }
+  ];
+
+  function loadDeliveryOptions() {
+    const select = document.getElementById("delivery-guy");
+    const cardsContainer = document.getElementById("delivery-cards");
+
+    deliveryPersons.forEach((person, index) => {
+      // Dropdown
+      const option = document.createElement("option");
+      option.value = index;
+      option.textContent = `${person.username} (KES ${person.charge})`;
+      select.appendChild(option);
+
+      // Cards
+      const card = document.createElement("div");
+      card.className = "delivery-card";
+      card.id = `card-${index}`;
+      card.innerHTML = `
+        <img src="${person.image}" alt="${person.username}">
+        <div class="delivery-info">
+          <p><strong>${person.username}</strong> <span class="dot" id="dot-${index}"></span>
+            <span class="availability" id="availability-${index}">Checking...</span>
+            </p>
+          <p>Phone: ${person.phone}</p>
+          <p>Charge: KES ${person.charge}</p>
+          <div class="progress-container" id="progress-container-${index}" style="display:none;">
+            <div class="progress-bar" id="progress-bar-${index}"></div>
+            <p id="status-${index}">Pending</p>
+          </div>
+        </div>
+      `;
+      cardsContainer.appendChild(card);
+    });
+  }
+
+function payForDelivery() {
+  const location = document.getElementById('location').value.trim();
+  const phone = document.getElementById('user-phone').value.trim();
+  const selectedGuy = document.getElementById('delivery-guy').value;
+
+  if (!location || !phone || selectedGuy === "") {
+    alert("❌ Please fill all delivery details and select a delivery person.");
+    return;
+  }
+
+  const busyKey = `isBusy-${selectedGuy}`;
+  const isBusy = localStorage.getItem(busyKey) === 'true';
+
+  if (isBusy) {
+    alert("🚫 The selected delivery person is currently busy with another delivery. Please choose another.");
+    return;
+  }
+
+  const guy = deliveryPersons[selectedGuy];
+  const deliveryCost = guy.charge;
+  let balance = getWalletBalance();
+
+  if (balance >= deliveryCost) {
+    balance -= deliveryCost;
+    localStorage.setItem("userBalance", balance.toFixed(2));
+    localStorage.setItem(busyKey, 'true'); // Mark delivery guy as busy
+    updateWalletBalanceDisplay();
+    alert(`✅ Delivery paid to ${guy.username} (${guy.phone}). Location: ${location}. Phone: ${phone}. Remaining Balance: KES ${balance.toFixed(2)}`);
+    startDeliveryProgress(selectedGuy);
+    updateAvailabilityStatus(selectedGuy); // Update visual
+  } else {
+    alert("❌ Not enough balance to pay for delivery.");
+  }
+}
+
+
+function startDeliveryProgress(index) {
+  const startKey = `deliveryStartTime-${index}`;
+  const startTime = Date.now();
+  localStorage.setItem(startKey, startTime);
+  runProgressUpdater(index, startTime);
+}
+
+function runProgressUpdater(index, startTime) {
+  const progressBar = document.getElementById(`progress-bar-${index}`);
+  const progressContainer = document.getElementById(`progress-container-${index}`);
+  const statusText = document.getElementById(`status-${index}`);
+  const dot = document.getElementById(`dot-${index}`);
+
+  progressContainer.style.display = 'block';
+  dot.classList.add('active-dot');
+
+  function update() {
+    const now = Date.now();
+    const elapsedSeconds = Math.floor((now - startTime) / 1000);
+    const percentage = Math.min((elapsedSeconds / 1800) * 100, 100);
+    progressBar.style.width = `${percentage}%`;
+
+    if (elapsedSeconds < 300) {
+      statusText.textContent = "Packaging...";
+      statusText.style.color = "orange";
+    } else if (elapsedSeconds < 1500) {
+      statusText.textContent = "Transporting...";
+      statusText.style.color = "dodgerblue";
+    } else if (elapsedSeconds < 1800) {
+      statusText.textContent = "Delivering...";
+      statusText.style.color = "mediumseagreen";
+    }  else {
+      statusText.textContent = "✅ Delivered!";
+      statusText.style.color = "limegreen";
+      dot.classList.remove('active-dot');
+      clearInterval(interval);
+
+      localStorage.removeItem(`deliveryStartTime-${index}`);
+      localStorage.removeItem(`isBusy-${index}`);
+      updateAvailabilityStatus(index);
+
+      showDeliveryPopup();
+    }
+
+  }
+
+  update();
+  const interval = setInterval(update, 5000);
+}
+
+  // Load everything
+  updateWalletBalanceDisplay();
+  loadDeliveryOptions();
+
+  deliveryPersons.forEach((_, index) => {
+  const startTime = localStorage.getItem(`deliveryStartTime-${index}`);
+  if (startTime) {
+    const elapsed = (Date.now() - parseInt(startTime)) / 1000;
+    if (elapsed < 1800) {
+      runProgressUpdater(index, parseInt(startTime));
+    } else {
+      localStorage.removeItem(`deliveryStartTime-${index}`);
+      localStorage.removeItem(`isBusy-${index}`);
+    }
+  }
+  updateAvailabilityStatus(index);
+});
+
+function updateAvailabilityStatus(index) {
+  const isBusy = localStorage.getItem(`isBusy-${index}`) === 'true';
+  const availabilityEl = document.getElementById(`availability-${index}`);
+  if (availabilityEl) {
+    availabilityEl.textContent = isBusy ? "Busy" : "Available";
+    availabilityEl.style.color = isBusy ? "red" : "limegreen";
+  }
+}
+
+function showDeliveryPopup() {
+  document.getElementById('delivery-popup').classList.remove('hidden');
+}
+
+function dismissPopup() {
+  document.getElementById('delivery-popup').classList.add('hidden');
+}
+
+
+
+</script>
+
+
+

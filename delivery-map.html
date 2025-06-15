@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Delivery Map</title>
+  <style>
+    #map {
+      height: 90vh;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h2>Delivery Tracking Map</h2>
+  <p><strong>Delivering to:</strong> <span id="userLocationDisplay"></span></p>
+  <p><strong>Contact:</strong> <span id="userPhoneDisplay"></span></p>
+  <div id="map"></div>
+
+  <script>
+    // Load user data
+    const userLocationText = localStorage.getItem("userLocation") || "Nairobi";
+    const userPhone = localStorage.getItem("userPhone") || "N/A";
+
+    document.getElementById("userLocationDisplay").textContent = userLocationText;
+    document.getElementById("userPhoneDisplay").textContent = userPhone;
+
+    // Simulated geolocation points (in a real app, this should come from backend or Firebase)
+    const customerLocation = { lat: -1.2921, lng: 36.8219 }; // hardcoded as example
+    const deliveryGuyLocation = { lat: -1.2833, lng: 36.8167 }; // simulate moving driver
+
+    function initMap() {
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 13,
+        center: customerLocation
+      });
+
+      // Customer Marker
+      new google.maps.Marker({
+        position: customerLocation,
+        map,
+        label: "You"
+      });
+
+      // Delivery Guy Marker (Simulated)
+      const deliveryMarker = new google.maps.Marker({
+        position: deliveryGuyLocation,
+        map,
+        label: "Delivery Guy"
+      });
+
+      // Line between delivery and customer
+      new google.maps.Polyline({
+        path: [deliveryGuyLocation, customerLocation],
+        geodesic: true,
+        strokeColor: "#FF0000",
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+        map
+      });
+    }
+  </script>
+
+  <!-- Google Maps API (Replace with your API key) -->
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAivPuNK8tfMAUAx3qKT0xBo8OYa3xmfrU&callback=initMap">
+  </script>
+</body>
+</html>
