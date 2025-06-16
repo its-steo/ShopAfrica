@@ -247,6 +247,20 @@
 .hidden {
   display: none;
 }
+.track-button {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background-color: #0a74da;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.track-button:hover {
+  background-color: #095cb2;
+}
+
+
 
 
 
@@ -440,6 +454,8 @@
   }
 
 function payForDelivery() {
+
+  
   const location = document.getElementById('location').value.trim();
   const phone = document.getElementById('user-phone').value.trim();
   const selectedGuy = document.getElementById('delivery-guy').value;
@@ -472,6 +488,25 @@ function payForDelivery() {
   } else {
     alert("❌ Not enough balance to pay for delivery.");
   }
+  
+localStorage.setItem("deliveryUserLocation", JSON.stringify({
+  lat: -1.2965,
+  lng: 36.8148
+}));
+
+const card = document.getElementById(`card-${selectedGuy}`);
+let trackBtn = card.querySelector(".track-button");
+
+if (!trackBtn) {
+  trackBtn = document.createElement("button");
+  trackBtn.textContent = "Track My Order";
+  trackBtn.className = "track-button";
+  trackBtn.onclick = function () {
+    window.location.href = `delivery-map.html?guy=${selectedGuy}`;
+  };
+  card.querySelector(".delivery-info").appendChild(trackBtn);
+}
+
 }
 
 
@@ -559,6 +594,8 @@ function showDeliveryPopup() {
 function dismissPopup() {
   document.getElementById('delivery-popup').classList.add('hidden');
 }
+
+
 
 
 

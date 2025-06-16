@@ -397,3 +397,98 @@ span {
 .footer-icons img:hover {
     transform: scale(1.1); /* optional hover effect */
 }
+  .color-option, .size-option {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    margin: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .color-option.active, .size-option.active {
+    border-color: #333;
+    background-color: #eee;
+    font-weight: bold;
+  }
+
+  .selection-group {
+    margin-bottom: 10px;
+  }
+ 
+.color-option, .size-option {
+    display: inline-block;
+    margin: 3px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+.color-option.selected, .size-option.selected {
+    border: 2px solid #007bff;
+    background-color: #e0f0ff;
+}
+/* Animation for product cards */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.product {
+  animation: fadeInUp 0.6s ease forwards;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Button hover effect */
+.Add-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.Add-btn:hover {
+  transform: scale(1.05);
+}
+.Add-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  z-index: 0;
+  transition: left 0.4s;
+}
+.Add-btn:hover::after {
+  left: 100%;
+}
+
+/* Animation for option selection (color/size) */
+.color-option,
+.size-option {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.color-option:hover,
+.size-option:hover {
+  background-color: #f0f8ff;
+  transform: scale(1.1);
+}
+
+/* Selected effect already exists, but animate transition */
+.color-option.selected,
+.size-option.selected {
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+
+

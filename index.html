@@ -63,15 +63,35 @@
 
 <div class="product-list">
 
-  <div class="product" data-category="clothing" data-price="20.99" data-stock="100" data-clicks="0">
-    <img src="image/product1.jpg" alt="Product 1">
-    <h3>Los Angeles Hoodies</h3>
-    <p>Stylish and comfortable hoodies from Los Angeles.</p>
-    <p class="price"><b>Price:</b> $20.99</p>
-    <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
-    <button class="Add-btn">Add to Cart</button>
-    <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+
+<div class="product" data-category="clothing" data-price="20.99" data-stock="100">
+  <img src="image/product1.jpg" alt="Product 1" width="120">
+  <h3>Los Angeles Hoodies</h3>
+  <p>Stylish and comfortable hoodies from Los Angeles.</p>
+
+  <!-- Color Selection -->
+  <div class="selection-group">
+    <label>Color:</label><br>
+    <span class="color-option" data-color="Black">Black</span>
+    <span class="color-option" data-color="Grey">Grey</span>
+    <span class="color-option" data-color="White">White</span>
   </div>
+
+  <!-- Size Selection -->
+  <div class="selection-group">
+    <label>Size:</label><br>
+    <span class="size-option" data-size="Small">S</span>
+    <span class="size-option" data-size="Medium">M</span>
+    <span class="size-option" data-size="Large">L</span>
+    <span class="size-option" data-size="XL">XL</span>
+  </div>
+
+  <p class="price"><b>Price:</b> $20.99</p>
+  <p class="stock-status">Status: <span class="stock-text">In Stock</span></p>
+  <button class="Add-btn">Add to Cart</button>
+  <div class="added-msg" style="display:none; color: green; margin-top: 5px; font-weight: bold;"></div>
+</div>
+
 
     <div class="product" data-category="clothing" data-price="20.99" data-stock="100" data-clicks="0">
     <img src="image/clo1.png" alt="Product 1">
@@ -1973,7 +1993,146 @@ document.addEventListener("DOMContentLoaded", function () {
     updateStockStatus(productEl);
   });
 
+  
+  document.querySelectorAll('.Add-btn').forEach(button => {
+    button.addEventListener('click', function () {
+      const productDiv = this.closest('.product');
+      const productName = productDiv.querySelector('h3').innerText;
+      const price = productDiv.dataset.price;
+      const color = productDiv.querySelector('.color-select').value;
+      const size = productDiv.querySelector('.size-select').value;
+
+      const cartItem = document.createElement('li');
+      cartItem.innerHTML = `
+        <b>${productName}</b> - $${price} <br>
+        <small>Color: ${color}, Size: ${size}</small>
+      `;
+
+      document.getElementById('cart-list').appendChild(cartItem);
+
+      // Show confirmation message
+      const msg = productDiv.querySelector('.added-msg');
+      msg.innerText = "Added to Cart!";
+      msg.style.display = "block";
+      setTimeout(() => { msg.style.display = "none"; }, 2000);
+    });
 
 
+  const colorOptions = document.querySelectorAll('.color-option');
+  const sizeOptions = document.querySelectorAll('.size-option');
+  const addToCartBtn = document.querySelector('.Add-btn');
+  const cartList = document.getElementById('cart-list');
+
+  let selectedColor = null;
+  let selectedSize = null;
+
+  colorOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      colorOptions.forEach(o => o.classList.remove('active'));
+      option.classList.add('active');
+      selectedColor = option.getAttribute('data-color');
+    });
+  });
+
+  sizeOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      sizeOptions.forEach(o => o.classList.remove('active'));
+      option.classList.add('active');
+      selectedSize = option.getAttribute('data-size');
+    });
+  });
+
+  addToCartBtn.addEventListener('click', () => {
+    if (!selectedColor || !selectedSize) {
+      alert("Please select both color and size.");
+      return;
+    }
+
+    const itemName = document.querySelector('.product h3').textContent;
+    const itemPrice = document.querySelector('.product .price').textContent;
+
+    const cartItem = document.createElement('li');
+    cartItem.textContent = `${itemName} - ${selectedColor}, ${selectedSize} (${itemPrice})`;
+
+    cartList.appendChild(cartItem);
+
+    document.querySelector('.added-msg').textContent = "Added to cart!";
+    document.querySelector('.added-msg').style.display = "block";
+
+    // Reset selection
+    colorOptions.forEach(o => o.classList.remove('active'));
+    sizeOptions.forEach(o => o.classList.remove('active'));
+    selectedColor = null;
+    selectedSize = null;
+  });
+
+  
+document.addEventListener("DOMContentLoaded", function () {
+    const cart = [];
+
+    // Selection for color
+    document.querySelectorAll('.color-option').forEach(option => {
+        option.addEventListener('click', function () {
+            const siblings = this.parentElement.querySelectorAll('.color-option');
+            siblings.forEach(sib => sib.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+    });
+
+    // Selection for size
+    document.querySelectorAll('.size-option').forEach(option => {
+        option.addEventListener('click', function () {
+            const siblings = this.parentElement.querySelectorAll('.size-option');
+            siblings.forEach(sib => sib.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+    });
+
+    // Add to Cart button logic
+    document.querySelectorAll('.Add-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const product = this.closest('.product');
+            const name = product.querySelector('h3').textContent;
+            const price = parseFloat(product.dataset.price);
+            const selectedColor = product.querySelector('.color-option.selected');
+            const selectedSize = product.querySelector('.size-option.selected');
+
+
+            const color = selectedColor.dataset.color;
+            const size = selectedSize.dataset.size;
+
+            const cartItem = {
+                name,
+                price,
+                color,
+                size
+            };
+
+            cart.push(cartItem);
+
+            // Display confirmation message
+            const msgDiv = product.querySelector('.added-msg');
+            msgDiv.textContent = `Added to cart: ${name} (${color}, ${size})`;
+            msgDiv.style.display = 'block';
+
+            // Optional: Update cart count
+            document.querySelector(".cart span").textContent = `Cart(${cart.length})`;
+
+            console.log("Cart:", cart);
+        });
+    });
+});
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const products = document.querySelectorAll(".product");
+    products.forEach((product, index) => {
+      product.style.animationDelay = `${index * 0.1}s`;
+    });
+  });
+
+
+  
+  });
 </script>
 </html>
