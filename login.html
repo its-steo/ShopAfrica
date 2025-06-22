@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Centered Image and Login Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2vw;
+  position: relative;
+  overflow-x: hidden; /* hide horizontal overflow */
+  overflow-y: auto;   /* enable vertical scrolling */
+}
+
+
+    video.background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .container {
+      height: 100%;
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      z-index: 1;
+    }
+
+    .headM {
+      width: 90%;
+      height: 100px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      font-size: 1.3rem;
+      color: white;
+      background-color: rgb(80, 120, 251);
+      animation: glow 1.5s infinite alternate;
+      box-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+    }
+
+    @keyframes glow {
+      0% { box-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff; }
+      50% { box-shadow: 0 0 20px #f0f, 0 0 30px #f0f, 0 0 40px #f0f; }
+      100% { box-shadow: 0 0 15px #0f0, 0 0 25px #0f0, 0 0 35px #0f0; }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, red, yellow);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientMove 3s linear infinite;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .image-profile {
+      width: 100%;
+      text-align: center;
+      margin-bottom: -30px;
+      margin-left: -10px;
+    }
+
+    .slog {
+      width: 80%;
+      max-width: 300px;
+      height: auto;
+    }
+
+    .login-form {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 1.5rem;
+      width: 100%;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-form h2 {
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      color: #333;
+      text-align: center;
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: #fff;
+    }
+
+    .login-form button {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .login-form button:hover {
+      background: #0056b3;
+    }
+
+    .social-login {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .social-login button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .social-login button:hover {
+      opacity: 0.85;
+    }
+
+    .google { background-color: #db4437; }
+    .facebook { background-color: #3b5998; }
+
+    .social-login i {
+      font-size: 1.2rem;
+    }
+
+    @media screen and (max-width: 768px) {
+      .headM h1 {
+        font-size: 2.2rem;
+      }
+
+      .login-form h2 {
+        font-size: 1.6rem;
+      }
+
+      .slog {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .headM {
+        height: 10%;
+        font-size: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .login-form {
+        padding: 1rem;
+      }
+
+      .login-form input,
+      .login-form button,
+      .social-login button {
+        font-size: 0.95rem;
+        padding: 0.6rem;
+      }
+    }
+  .top-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.top-buttons button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  transition: all 0.25s ease-in-out;
+  transform: scale(1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Button colors */
+.visit-btn {
+  background-color: #343a40;
+}
+
+.register-btn {
+  background-color: #28a745;
+}
+
+/* Hover effect */
+.top-buttons button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Click/Active effect */
+.top-buttons button:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2) inset;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Background Video -->
+  <video class="background-video" autoplay muted loop>
+    <source src="video/WhatsApp Video 2025-06-22 at 18.38.06_9814ac10.mp4" type="video/mp4">
+  </video>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="top-buttons">
+  <button class="visit-btn"><i class="fas fa-arrow-left"></i> Website</button>
+  <button class="register-btn">Register <i class="fas fa-arrow-right"></i></button>
+</div>
+
+    <div class="headM">
+      <h1>ShopEase</h1>
+    </div>
+
+    <div class="image-profile">
+      <img class="slog" src="image/Frame_1__1_-removebg-preview.png" alt="Logo">
+    </div>
+
+    <div class="login-form">
+      <h2>Login</h2>
+      <input type="text" placeholder="Username">
+      <input type="password" placeholder="Password">
+      <button>Login</button>
+
+      <p style="margin: 10px 0; color: #444; text-align: center;">OR</p>
+
+      <div class="social-login">
+        <button class="google"><i class="fab fa-google"></i> Login with Google</button>
+        <button class="facebook"><i class="fab fa-facebook-f"></i> Login with Facebook</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
