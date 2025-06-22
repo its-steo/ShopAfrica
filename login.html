@@ -73,6 +73,7 @@ html, body {
       font-size: 2.5rem;
       background: linear-gradient(90deg, red, yellow);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: gradientMove 3s linear infinite;
     }
@@ -288,4 +289,9 @@ html, body {
     </div>
   </div>
 </body>
+<script>
+  document.querySelector('.register-btn').addEventListener('click', function() {
+    window.location.href = "register.html";
+  });
+</script>
 </html>
