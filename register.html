@@ -181,6 +181,48 @@
         height: 40px;
       }
     }
+.login-redirect {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 16px;
+  color: #333;
+}
+
+.login-span {
+  color: #007bff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.login-span::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: #007bff;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.login-span:hover {
+  color: #0056b3;
+}
+
+.login-span:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.login-span:active {
+  transform: scale(0.95);
+  color: #003f7f;
+}
+
   </style>
 </head>
 <body>
@@ -201,6 +243,9 @@
       <button class="google-btn"><i class="fab fa-google"></i> Register with Google</button>
       <button class="facebook-btn"><i class="fab fa-facebook-f"></i> Register with Facebook</button>
     </div>
+<div class="login-redirect">
+  <p>Already have an account? <span class="login-span">Login</span></p>
+</div>
 
     <div class="download-section">
       <p>Download our app:</p>
@@ -211,5 +256,10 @@
     </div>
   </div>
 </body>
+<script>
+    document.querySelector('.login-span').addEventListener('click', function() {
+    window.location.href = "login.html";
+  });
+</script>
 </html>
 
