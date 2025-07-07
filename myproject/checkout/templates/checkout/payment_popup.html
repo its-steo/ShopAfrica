@@ -1,0 +1,172 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Secure Checkout - Payment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <style>
+    body {
+      background: linear-gradient(to bottom, #fef3c7, #fff7ed);
+    }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    input[type="radio"]:checked + .accordion-header + .accordion-content {
+      max-height: 600px;
+    }
+    .btn-primary {
+      background: linear-gradient(to right, #f59e0b, #d97706);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(to right, #d97706, #b45309);
+    }
+    .checkmark {
+      display: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #10b981;
+      position: relative;
+    }
+    .checkmark::after {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 5px;
+      width: 8px;
+      height: 14px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      transform: rotate(45deg);
+    }
+    #popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #10b981;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      display: none;
+      z-index: 1000;
+      font-weight: 600;
+    }
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(-10px); }
+      10% { opacity: 1; transform: translateY(0); }
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+  <div id="popup">✅ Payment Successful!</div>
+  <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-2xl">
+    <h1 class="text-3xl font-extrabold text-gray-900 text-center mb-4">💳 Secure Payment</h1>
+    <p class="text-center text-gray-600 mb-6">Order #{{ order.id }} | Total: <span class="text-green-600 font-bold">Ksh {{ order.total_amount|floatformat:2|intcomma }}</span></p>
+
+    <form method="post" enctype="multipart/form-data" id="payment-form">
+      {% csrf_token %}
+
+      <!-- M-PESA -->
+      <div class="border rounded-xl p-5 bg-green-50 mb-4">
+        <input type="radio" name="payment_method" value="mpesa" id="mpesa" class="hidden" required>
+        <label for="mpesa" class="accordion-header flex items-center cursor-pointer">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/M-Pesa_Logo.svg/2560px-M-Pesa_Logo.svg.png" alt="M-PESA" class="w-12 h-12">
+          <span class="ml-4 text-lg font-semibold text-green-700">M-PESA (Till: 3526578)</span>
+          <i class="fas fa-chevron-down ml-auto text-gray-500"></i>
+        </label>
+        <div class="accordion-content mt-2">
+          <p class="text-sm text-gray-600">Powered by <strong>Sashitrendy Technologies</strong></p>
+          <input type="number" name="mpesa_amount" id="mpesa_amount" placeholder="Enter amount paid" class="mt-2 w-full border px-3 py-2 rounded" required>
+          <input type="file" name="mpesa_screenshot" id="mpesa_screenshot" accept="image/*" class="mt-2 w-full border px-3 py-2 rounded" required>
+          <button type="button" onclick="validateMpesaPayment()" class="btn-primary mt-4 w-full py-2 text-white rounded font-semibold flex justify-center items-center gap-2" id="mpesa_submit_btn">
+            <i class="fas fa-spinner hidden animate-spin" id="mpesa_loader"></i>
+            <span id="submit_text">Submit M-PESA Payment</span>
+            <span class="checkmark" id="checkmark_icon"></span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.querySelectorAll('input[name="payment_method"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = '0');
+        const content = radio.parentElement.querySelector('.accordion-content');
+        if (content) content.style.maxHeight = content.scrollHeight + 'px';
+      });
+    });
+
+
+function validateMpesaPayment() {
+  const amountInput = document.getElementById('mpesa_amount');
+  const screenshotInput = document.getElementById('mpesa_screenshot');
+  const loader = document.getElementById('mpesa_loader');
+  const button = document.getElementById('mpesa_submit_btn');
+  const checkmark = document.getElementById('checkmark_icon');
+  const submitText = document.getElementById('submit_text');
+  const popup = document.getElementById('popup');
+  const expectedAmount = parseFloat("{{ order.total_amount|floatformat:'2' }}");
+  const paidAmount = parseFloat(amountInput.value);
+
+  if (!paidAmount || !screenshotInput.files.length) {
+    alert('Please enter the amount and upload the screenshot.');
+    return;
+  }
+
+  // Start loader
+  loader.classList.remove('hidden');
+  submitText.textContent = 'Processing...';
+  button.disabled = true;
+
+  // Prepare data
+  const formData = new FormData();
+  formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+  formData.append('payment_method', 'mpesa');
+  formData.append('amount_paid', paidAmount);
+  formData.append('mpesa_screenshot', screenshotInput.files[0]);
+
+  fetch("", {
+    method: "POST",
+    body: formData,
+  })
+  .then(response => response.json())
+  .then(data => {
+    loader.classList.add('hidden');
+    if (data.success) {
+      checkmark.style.display = 'inline-block';
+      popup.style.display = 'block';
+
+      setTimeout(() => {
+        popup.style.display = 'none';
+        window.opener.location.reload();
+        window.close();
+      }, 2500);
+    } else {
+      alert('❌ ' + data.message);
+      submitText.textContent = 'Submit M-PESA Payment';
+      button.disabled = false;
+    }
+  })
+  .catch(error => {
+    console.error("Error:", error);
+    alert('Something went wrong.');
+    loader.classList.add('hidden');
+    submitText.textContent = 'Submit M-PESA Payment';
+    button.disabled = false;
+  });
+}
+
+  </script>
+</body>
+</html>

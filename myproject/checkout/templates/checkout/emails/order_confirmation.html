@@ -1,0 +1,5 @@
+<h2>Order #{{ order.id }} Confirmed</h2>
+<p>Hi {{ order.full_name }},</p>
+<p>Your payment was successful. Your order is now being processed.</p>
+<p>Delivery Method: {{ order.get_delivery_method_display }}</p>
+<p>Estimated Delivery Date: {{ order.estimated_delivery }}</p>

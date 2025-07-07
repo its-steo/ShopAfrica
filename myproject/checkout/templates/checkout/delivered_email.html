@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Order Has Been Delivered</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f3f4f6;
+      color: #1f2937;
+      padding: 20px;
+    }
+    .email-container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.05);
+    }
+    .header {
+      text-align: center;
+    }
+    .header h2 {
+      color: #10b981;
+      margin-bottom: 0.5rem;
+    }
+    .status-icon {
+      font-size: 3rem;
+    }
+    .order-summary {
+      margin-top: 20px;
+    }
+    .order-summary p {
+      margin: 8px 0;
+    }
+    .footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: #6b7280;
+      text-align: center;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 25px;
+      background-color: #10b981;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <div class="header">
+      <div class="status-icon">📦✅</div>
+      <h2>Order #{{ order_id }} Delivered</h2>
+      <p>Hi {{ full_name }}, your package has arrived!</p>
+    </div>
+
+    <div class="order-summary">
+      <p><strong>Delivered to:</strong> {{ address }}, {{ city }}</p>
+      <p><strong>Delivered on:</strong> {{ delivered_date }}</p>
+      <p><strong>Total Paid:</strong> KSh {{ total_amount }}</p>
+    </div>
+
+    <div style="text-align:center;">
+      <a href="{{ order_detail_url }}" class="btn">View Order Details</a>
+    </div>
+
+    <div class="footer">
+      Thank you for shopping with ShopEase!<br>
+      If you have any questions, reply to this email or contact our support.
+    </div>
+  </div>
+</body>
+</html>

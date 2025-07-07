@@ -1,0 +1,330 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopEase - Your Ultimate Shopping Experience</title>
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to <span class="highlight">ShopEase</span></h1>
+    <p>Enjoy a seamless shopping experience with us!</p>
+  </header>
+
+  <main>
+ <!-- Banner Section with Scrolling Images -->
+<section class="banner">
+  <h2 style="animation: bounce 1.5s infinite;">Exclusive Deals Await!</h2>
+
+<div class="scroll-banner">
+    <div class="scroll-track">
+        <img src="{% static 'images/image7.jpg' %}" alt="Banner 1" />
+        <img src="{% static 'images/image8.jpg' %}" alt="Banner 2" />
+        <img src="{% static 'images/image9.jpg' %}" alt="Banner 3" />
+        <img src="{% static 'images/image41.png' %}" alt="Banner 4" />
+        <img src="{% static 'images/image5.jpg' %}" alt="Banner 5" />
+        <img src="{% static 'images/image10.jpg' %}" alt="Banner 6" />
+    </div>
+</div>
+
+  </section>
+
+ <div class="center-button">
+  <button>
+    <a href="{% url 'products' %}" id="home">Start shopping</a>
+  </button>
+</div>
+
+    <!-- Features Section -->
+<section class="features">
+<div class="feature slide-up">
+  <video autoplay muted loop playsinline style="width: 100%; border-radius: 10px;">
+    <source src="video/video1.mp4" type="video/mp4" />
+  </video>
+  <h3>Free Delivery</h3>
+  <p>Say goodbye to shipping fees! At ShopEase, we offer free delivery on all eligible orders — no minimum purchase required. Whether you’re shopping for daily essentials or big-ticket items, we’ll get them to your doorstep quickly and at no extra cost.</p>
+</div>
+
+
+<div class="feature slide-up">
+  <video autoplay muted loop playsinline style="width: 100%; border-radius: 10px;">
+    <source src="video/video2.mp4" type="video/mp4" />
+  </video>
+  <h3>Product Offers</h3>
+  <p>Discover amazing deals on a wide range of products. From electronics to fashion, we have something for everyone at unbeatable prices.</p>
+</div>
+
+  <div class="feature slide-up">
+  <video autoplay muted loop playsinline style="width: 100%; border-radius: 10px;">
+    <source src="video/video3.mp4" type="video/mp4" />
+  </video>
+  <h3>Product Offers</h3>
+  <p>Discover amazing deals on a wide range of products. From electronics to fashion, we have something for everyone at unbeatable prices.</p>
+</div>
+</section>
+
+<section class="features">
+  <div class="feature slide-up">
+    <img src="image/secure.jpg" alt="Secure Payment" />
+    <h3>Secure Payments</h3>
+    <p>Your safety is our priority. ShopEase uses the latest encryption and fraud protection systems to keep your transactions secure.</p>
+  </div>
+
+  <div class="feature slide-up">
+    <img src="image/support.jpg" alt="Customer Support" />
+    <h3>24/7 Customer Support</h3>
+    <p>Our dedicated team is always ready to help — any time, any day. Reach us via chat, email, or phone.</p>
+  </div>
+</section>
+
+<section class="features">
+  <div class="feature slide-up">
+    <img src="image/delivery3.jpg" alt="Fast Delivery" />
+    <h3>Fast & Free Delivery</h3>
+    <p>We deliver to all parts of Kenya within 24–72 hours. Our team ensures safe packaging and timely delivery to your doorstep.</p>
+  </div>
+
+  <div class="feature slide-up">
+    <img src="image/maspro.jpg" alt="Variety" />
+    <h3>Massive Product Variety</h3>
+    <p>From electronics to fashion, beauty to groceries, ShopEase is your one-stop shop for everything you need.</p>
+  </div>
+</section>
+
+
+
+
+    <!-- Product Showcase -->
+    <section class="product-showcase">
+      <h2>Top Picks for You</h2>
+      <div class="products">
+        <div class="product">
+          <img src="image/image11.jpg" alt="Product 1" />
+          <p><b>Apple Products</b></p>
+          <p>10% off for first-time buyers!</p>
+          <p>Get ready to elevate your tech game with our latest gadget! Packed with features and designed for convenience, this is a must-have for every tech enthusiast.</p>
+        </div>
+        <div class="product">
+          <img src="image/image12.jpg" alt="Product 2" />
+          <p><b>Luis-Vuitton Product</b></p>
+          <p>Exclusive collection available now! Get yours today! Cheap luxury at your fingertips.</p>
+        </div>
+        <div class="product">
+          <img src="image/image13.jpg" alt="Product 3" />
+          <p><b>Muff Hoodie</b></p>
+            <p>Stay cozy and stylish with our new Muff Hoodie. Perfect for any season! latest fashion trends await you.</p>
+        </div>
+        <div class="product">
+          <img src="image/image14.jpg" alt="Product 4" />
+          <p><b>Android Tv</b></p>
+          <p>Experience the future of entertainment with our Android TV. Stream your favorite shows and movies in stunning quality!</p>
+        </p>
+        </div>
+        <div class="product">
+          <img src="image/image15.jpg" alt="Product 5" />
+          <p><b>Fashion Backpack</b></p>
+          <p>Stay organized and stylish with our Fashion Backpack. Perfect for school, work, or travel!</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="reviews" style="background:#f9f9f9; padding:40px 20px;">
+  <h2 style="color:#2600ff; text-align: center;">What Our Customers Say</h2>
+  <div id="reviews-container" style="display:flex; flex-wrap:wrap; justify-content:center; gap:30px; margin-top:30px;">
+    <!-- Reviews will be dynamically loaded -->
+  </div>
+</section>
+
+</body>
+
+<script>
+
+  const reviews = [
+  {
+    name: "Achieng M.",
+    location: "Nairobi, Kenya",
+    message: "ShopEase made my shopping easier than ever. Fast delivery and top-notch support!"
+  },
+  {
+    name: "James O.",
+    location: "Kisumu, Kenya",
+    message: "I got my Android TV within 2 days. The whole process was smooth and stress-free!"
+  },
+  {
+    name: "Lerato S.",
+    location: "Johannesburg, South Africa",
+    message: "Reliable service and original electronics. I’m impressed with the overall experience."
+  },
+  {
+    name: "George K.",
+    location: "Bungoma",
+    message: "My fridge arrived earlier than expected. Reliable delivery service!"
+  },
+  {
+    name: "Fatima D.",
+    location: "Casablanca, Morocco",
+    message: "The French interface and quick delivery made this a 5-star shopping experience."
+  },
+  {
+    name: "Kwame A.",
+    location: "Accra, Ghana",
+    message: "The checkout was seamless and I got real-time updates on my order. Well done!"
+  },
+  {
+    name: "Chidera N.",
+    location: "Lagos, Nigeria",
+    message: "Best online shop I’ve used. Delivery was fast and product quality is unmatched!"
+  },
+    {
+    name: "Samuel D.",
+    location: "Embu",
+    message: "User-friendly website with clear product info and secure payment options."
+  },
+  {
+    name: "Elias M.",
+    location: "Addis Ababa, Ethiopia",
+    message: "Affordable pricing and good service. I’ve already recommended ShopEase to friends."
+  },
+  {
+    name: "Zawadi P.",
+    location: "Dar es Salaam, Tanzania",
+    message: "Ordered a phone and it was delivered in under 48 hours. Amazing!"
+  },
+  {
+    name: "Yvonne C.",
+    location: "Kampala, Uganda",
+    message: "Excellent service, fast support response, and I love the discounts."
+  },
+  {
+    name: "Agnes K.",
+    location: "Voi",
+    message: "The checkout process was fast and smooth, no delays at all."
+  },
+  {
+    name: "Mohamed F.",
+    location: "Cairo, Egypt",
+    message: "Great prices and customer service in Arabic. I'm shopping again soon."
+  },
+  {
+    name: "Tariro M.",
+    location: "Harare, Zimbabwe",
+    message: "My order was delivered right to my doorstep. Highly professional!"
+  },
+  {
+    name: "Sophie B.",
+    location: "Douala, Cameroon",
+    message: "Smooth user experience and I got a great deal on my Bluetooth speaker."
+  },
+  {
+    name: "Moussa K.",
+    location: "Bamako, Mali",
+    message: "ShopEase is dependable and delivers even in West Africa. Love it!"
+  },
+  {
+    name: "Ismail A.",
+    location: "Khartoum, Sudan",
+    message: "Ordered electronics and the packaging was solid. No complaints!"
+  },
+  {
+    name: "Lilian T.",
+    location: "Gaborone, Botswana",
+    message: "Best place to find trending fashion with free delivery. Highly recommend."
+  },
+  {
+    name: "Hamza R.",
+    location: "Tunis, Tunisia",
+    message: "ShopEase surprised me with fast shipping and secure payment!"
+  },
+  {
+    name: "Peter W.",
+    location: "Kakamega",
+    message: "The TV arrived in perfect condition and works great. Kudos, ShopEase!"
+  },
+  {
+    name: "Ruth N.",
+    location: "Windhoek, Namibia",
+    message: "ShopEase gives me more options than local shops. Love the variety!"
+  },
+  {
+    name: "Jean-Paul M.",
+    location: "Kigali, Rwanda",
+    message: "Very user-friendly platform and excellent delivery. Great job!"
+  },
+  {
+    name: "Ahmed A.",
+    location: "Algiers, Algeria",
+    message: "A wide selection of electronics and easy payments. Works perfectly."
+  },
+  {
+    name: "Naomi B.",
+    location: "Maputo, Mozambique",
+    message: "Impressed by the affordable gadgets and real-time order tracking!"
+  },
+  {
+    name: "Kevin T.",
+    location: "Eldoret",
+    message: "Easy-to-navigate interface, fast checkout, and real-time order tracking. Impressed!"
+  },
+  {
+    name: "David M.",
+    location: "Kericho",
+    message: "Fantastic experience! Their mobile app works like a charm too."
+  },
+  {
+    name: "Caroline A.",
+    location: "Machakos",
+    message: "Very reliable delivery and loved the WhatsApp support team!"
+  },
+  {
+    name: "Peter W.",
+    location: "Kakamega",
+    message: "The TV arrived in perfect condition and works great. Kudos, ShopEase!"
+  }
+];
+
+
+  let currentIndex = 0;
+  const container = document.getElementById("reviews-container");
+
+  const card = document.createElement("div");
+  card.className = "card";
+  card.style = "background:#fff; padding:20px; max-width:320px; border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.1); transition:opacity 0.5s ease;";
+  container.appendChild(card);
+
+  function showReview(index) {
+    const review = reviews[index];
+    card.innerHTML = `
+      <p style="font-style:italic;">"${review.message}"</p>
+      <p><strong>- ${review.name}, ${review.location}</strong></p>
+    `;
+  }
+
+  showReview(currentIndex);
+
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % reviews.length;
+    card.style.opacity = 0;
+    setTimeout(() => {
+      showReview(currentIndex);
+      card.style.opacity = 1;
+    }, 300);
+  }, 5000);
+
+
+    //function startShopping() {
+    //  window.location.href = "login.html";
+    //}
+    //document.querySelector("#start-shopping").addEventListener("click", startShopping);
+
+  
+
+
+
+  </script>
+
+</html>

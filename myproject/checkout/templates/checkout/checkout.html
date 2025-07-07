@@ -1,0 +1,303 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopAfrica Checkout</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="max-w-7xl mx-auto px-4 py-10">
+    <div class="mb-10 text-center">
+      <h1 class="text-4xl font-bold text-gray-800">Secure Checkout</h1>
+      <p class="text-sm text-gray-500">Complete your order below</p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Billing Form -->
+      <div class="lg:col-span-2 bg-white p-8 rounded-2xl shadow-lg">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-6">Billing & Shipping</h2>
+        <form method="post" class="space-y-6">
+          {% csrf_token %}
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <input type="text" name="full_name" placeholder="Full Name" value="{{ user_profile.full_name|default:'' }}" required class="input">
+            <input type="email" name="email" placeholder="Email Address" value="{{ user_profile.email|default:'' }}" required class="input">
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <input type="text" name="phone" placeholder="Phone Number" value="{{ user_profile.phone|default:'' }}" required class="input">
+            <input type="text" name="city" placeholder="City" value="{{ user_profile.city|default:'' }}" required class="input">
+          </div>
+
+          <input type="text" name="address" placeholder="Shipping Address" value="{{ user_profile.address|default:'' }}" required class="input">
+          <textarea name="notes" placeholder="Order Notes (Optional)" rows="3" class="input">{{ user_profile.notes|default:'' }}</textarea>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <select name="delivery_method" id="delivery-method" required class="input">
+              <option value="">Select Delivery Method</option>
+              <option value="standard" {% if delivery_method == "standard" %}selected{% endif %}>Standard (3-5 days) - Ksh 300</option>
+              <option value="express" {% if delivery_method == "express" %}selected{% endif %}>Express (1-2 days) - Ksh 600</option>
+              <option value="cash_on_delivery" {% if delivery_method == "cash_on_delivery" %}selected{% endif %}>Cash on Delivery - Free</option>
+            </select>
+
+            <select name="payment_method" required class="input">
+              <option value="">Select Payment Method</option>
+              <option value="mpesa">M-PESA</option>
+              <option value="card">Credit/Debit Card</option>
+              <option value="cod">Cash on Delivery</option>
+              <option value="paypal">PayPal</option>
+              <option value="bank_transfer">Bank Transfer</option>
+              <option value="crypto">Cryptocurrency</option>
+            </select>
+          </div>
+
+          <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold py-3 rounded-lg transition">
+            <i class="fas fa-lock mr-2"></i> Confirm and Place Order
+          </button>
+        </form>
+
+        <div class="mt-6 text-sm text-gray-500 text-center">
+          <i class="fas fa-shield-alt text-yellow-500 mr-1"></i> Your information is encrypted and secure.
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg h-fit sticky top-6">
+        <h2 class="text-xl font-semibold text-gray-700 mb-4 border-b pb-2">Order Summary</h2>
+
+        <ul class="divide-y divide-gray-200 mb-4">
+          {% for item in items %}
+            <li class="py-3 flex justify-between text-sm">
+              <div class="w-3/4 truncate">{{ item.product.name }} x {{ item.quantity }}</div>
+              <div class="text-right font-medium text-gray-700">Ksh {{ item.total_price|floatformat:2|intcomma }}</div>
+            </li>
+          {% endfor %}
+        </ul>
+
+        {% if coupon_code %}
+          <div class="mb-3 text-sm text-green-600">
+            Coupon <strong>{{ coupon_code }}</strong> applied
+          </div>
+        {% endif %}
+
+        <div class="space-y-2 text-sm text-gray-700">
+          <div class="flex justify-between">
+            <span>Subtotal:</span>
+            <span>Ksh {{ subtotal|floatformat:2|intcomma }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Delivery Fee:</span>
+            <span id="delivery-fee">Ksh {{ delivery_fee|floatformat:2|intcomma }}</span>
+          </div>
+          {% if discount_amount and discount_amount > 0 %}
+            <div class="flex justify-between text-green-600">
+              <span>Discount ({{ coupon_code }}):</span>
+              <span>- Ksh {{ discount_amount|floatformat:2|intcomma }}</span>
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="mt-4 border-t pt-4 flex justify-between text-lg font-bold text-gray-900">
+          <span>Total:</span>
+          <span id="total-price">Ksh {{ total_price|floatformat:2|intcomma }}</span>
+        </div>
+
+        <p class="text-sm text-gray-500 mt-4">
+          Estimated Delivery: <strong>{{ estimated_delivery }}</strong>
+        </p>
+
+        <div class="w-full bg-gray-200 rounded-full h-2 mt-6">
+          <div class="bg-yellow-500 h-2 rounded-full" style="width: 66%"></div>
+        </div>
+        <p class="text-xs text-center text-gray-500 mt-1">Step 2 of 3: Confirm and Pay</p>
+      </div>
+    </div>
+  </div>
+  <div id="floatingOrderBtnsContainer" class="fixed bottom-4 right-4 z-50 space-y-3"></div>
+
+
+  <!-- Tailwind Input Styling -->
+  <style>
+    .input {
+      width: 100%;
+      border: 1px solid #D1D5DB;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      outline: none;
+      transition: box-shadow 0.2s;
+    }
+    .input:focus {
+      box-shadow: 0 0 0 2px #F59E42;
+      border-color: #F59E42;
+    }
+  </style>
+
+  <!-- Dynamic Fee and Total Calculation -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const deliverySelect = document.getElementById('delivery-method');
+      const deliveryFeeEl = document.getElementById('delivery-fee');
+      const totalPriceEl = document.getElementById('total-price');
+
+      const jsSubtotal = parseFloat("{{ subtotal|floatformat:2|default:'0' }}");
+      const jsDiscount = parseFloat("{{ discount_amount|floatformat:2|default:'0' }}");
+
+      const formatCurrency = val =>
+        'Ksh ' + Number(val).toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+
+      function updateTotals() {
+        let delivery = 0;
+        switch (deliverySelect.value) {
+          case 'standard': delivery = 300; break;
+          case 'express': delivery = 600; break;
+          case 'cash_on_delivery': delivery = 0; break;
+        }
+
+        const total = jsSubtotal - jsDiscount + delivery;
+        deliveryFeeEl.textContent = formatCurrency(delivery);
+        totalPriceEl.textContent = formatCurrency(total);
+      }
+
+      deliverySelect.addEventListener('change', updateTotals);
+      updateTotals(); // run once on page load
+    });
+  </script>
+
+  <script>
+function openPaymentPopup(orderId) {
+  const width = 600, height = 750;
+  const left = (screen.width - width) / 2;
+  const top = (screen.height - height) / 2;
+  window.open(`/checkout/payment/${orderId}/`, 'PaymentPopup', `width=${width},height=${height},top=${top},left=${left}`);
+}
+
+function storeOrderToFloat(e) {
+  e.preventDefault();
+  const order = {
+    id: "{{ order.id }}",
+    status: "{{ order.order_status }}"
+  };
+  let orders = JSON.parse(localStorage.getItem("floatingOrders") || "[]");
+  const exists = orders.some(o => o.id === order.id);
+  if (!exists && order.status !== "cancelled") {
+    orders.push(order);
+    localStorage.setItem("floatingOrders", JSON.stringify(orders));
+  }
+  window.location.href = e.currentTarget.href;
+  return false;
+}
+
+function renderFloatingOrderButtons() {
+  const container = document.getElementById("floatingOrderBtnsContainer");
+  if (!container) return;
+
+  const orders = JSON.parse(localStorage.getItem("floatingOrders") || "[]");
+  container.innerHTML = '';
+
+  orders.forEach(order => {
+    if (order.status === "cancelled") return;
+
+    const btn = document.createElement("div");
+    btn.className = "bg-green-600 text-white rounded-full shadow-xl px-2 py-1 flex items-center justify-between gap-2 animate-pop text-xs sm:text-sm";
+    btn.style.position = "fixed";
+    btn.style.bottom = "1rem";
+    btn.style.right = "1rem";
+    btn.style.cursor = "move";
+    btn.setAttribute("data-id", order.id);
+
+    btn.innerHTML = `
+      <span class="font-semibold">View Order #${order.id}</span>
+      <div class="flex gap-2">
+        <button onclick="openFloatingStatus('${order.id}')" class="bg-white text-green-600 px-2 py-1 rounded-full hover:bg-green-100 text-xs sm:text-sm">View</button>
+        <button onclick="dismissFloating('${order.id}')" class="bg-red-500 text-white px-2 py-1 rounded-full hover:bg-red-600 text-xs sm:text-sm">Dismiss</button>
+      </div>
+    `;
+
+    makeDraggable(btn);
+    container.appendChild(btn);
+  });
+}
+
+function makeDraggable(element) {
+  let isDragging = false;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  // Mouse events
+  element.addEventListener('mousedown', function(e) {
+    isDragging = true;
+    offsetX = e.clientX - element.getBoundingClientRect().left;
+    offsetY = e.clientY - element.getBoundingClientRect().top;
+    element.style.zIndex = 1000;
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    element.style.left = `${e.clientX - offsetX}px`;
+    element.style.top = `${e.clientY - offsetY}px`;
+    element.style.right = 'auto';
+    element.style.bottom = 'auto';
+    element.style.position = 'fixed';
+  });
+
+  document.addEventListener('mouseup', function() {
+    isDragging = false;
+  });
+
+  // Touch events
+  element.addEventListener('touchstart', function(e) {
+    isDragging = true;
+    const touch = e.touches[0];
+    offsetX = touch.clientX - element.getBoundingClientRect().left;
+    offsetY = touch.clientY - element.getBoundingClientRect().top;
+    element.style.zIndex = 1000;
+  });
+
+  document.addEventListener('touchmove', function(e) {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    element.style.left = `${touch.clientX - offsetX}px`;
+    element.style.top = `${touch.clientY - offsetY}px`;
+    element.style.right = 'auto';
+    element.style.bottom = 'auto';
+    element.style.position = 'fixed';
+  }, { passive: false });
+
+  document.addEventListener('touchend', function() {
+    isDragging = false;
+  });
+}
+
+
+function openFloatingStatus(orderId) {
+  const w = 700, h = 800;
+  const left = (screen.width - w) / 2;
+  const top = (screen.height - h) / 2;
+  window.open(`/checkout/order-success/${orderId}/`, '_blank', `width=${w},height=${h},left=${left},top=${top}`);
+}
+
+function dismissFloating(orderId) {
+  let orders = JSON.parse(localStorage.getItem("floatingOrders") || "[]");
+  orders = orders.filter(order => order.id !== orderId);
+  localStorage.setItem("floatingOrders", JSON.stringify(orders));
+  renderFloatingOrderButtons();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const path = window.location.pathname;
+  const isOrderSuccessPage = path.includes('/order-success/');
+  const allowedPaths = ['/products/', '/cart/', '/checkout/'];
+
+  if (!isOrderSuccessPage && (allowedPaths.some(p => path.startsWith(p)) || path === '/')) {
+    renderFloatingOrderButtons();
+  }
+});
+</script>
+</body>
+</html>

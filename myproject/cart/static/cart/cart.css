@@ -1,0 +1,75 @@
+/* cart.css */
+
+/* General quantity input field */
+.quantity-input {
+    width: 3rem;
+    text-align: center;
+}
+
+/* Container for table – restrict width and make it responsive */
+.table-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Hover state for remove button */
+.btn-remove:hover {
+    background-color: #dc2626; /* Tailwind red-600 */
+}
+
+/* Quantity adjustment buttons */
+.btn-quantity {
+    transition: background-color 0.2s;
+}
+
+.btn-quantity:hover {
+    background-color: #4b5563; /* Tailwind gray-700 */
+}
+
+/* Responsive image handling */
+.product-image {
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+    border-radius: 0.25rem;
+}
+
+/* Stack item content on small screens */
+@media (max-width: 640px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid #e5e7eb; /* Tailwind gray-200 */
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+    }
+
+    td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #4b5563; /* Tailwind gray-700 */
+    }
+
+    .product-image {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+}

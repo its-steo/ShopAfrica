@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - ShopEase</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #d9e8ff, #f0faff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .register-container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+    }
+
+    .register-container img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+
+    .register-container h1 {
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .input {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    button[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    .social-register {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+    }
+
+    .social-register a {
+      text-align: center;
+      margin: 8px 0;
+      padding: 10px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      color: white;
+      transition: transform 0.2s ease;
+    }
+
+    .social-register a:hover {
+      transform: scale(1.02);
+    }
+
+    .google {
+      background-color: #db4437;
+    }
+
+    .facebook {
+      background-color: #3b5998;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .register-container {
+        padding: 25px 20px;
+        border-radius: 10px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <!-- Image -->
+    <img src="images" alt="ShopEase Logo">
+
+    <!-- Title -->
+    <h1>ShopEase</h1>
+
+    <!-- Registration Form -->
+    <form method="POST">
+      {% csrf_token %}
+
+      {{ form.username.errors }}
+      {{ form.username }}
+
+      {{ form.email.errors }}
+      {{ form.email }}
+
+      {{ form.password.errors }}
+      {{ form.password }}
+
+      <button type="submit">Register</button>
+    </form>
+
+    <!-- Social Register -->
+    <div class="social-register">
+      <a href="#" class="google">Register with Google</a>
+      <a href="#" class="facebook">Register with Facebook</a>
+    </div>
+
+    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,216 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Track Your Order</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .progress-container {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+    }
+    .progress-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+      width: 20%;
+      position: relative;
+    }
+    .progress-step:hover .tooltip {
+      display: block;
+    }
+    .progress-circle {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.3rem;
+      transition: all 0.5s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      animation: pulse 2s infinite;
+    }
+    .tooltip {
+      display: none;
+      position: absolute;
+      bottom: 4rem;
+      background: #333;
+      color: #fff;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      50% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+    }
+    .gps-marker {
+      width: 12px;
+      height: 12px;
+      background: red;
+      border-radius: 50%;
+      animation: blink 1.2s infinite;
+      margin-top: 5px;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+    .truck-icon {
+      position: absolute;
+      top: 1.2rem;
+      transform: translateY(-50%);
+      width: 32px;
+      height: auto;
+      z-index: 20;
+      transition: left 2s ease-in-out;
+      display: none;
+    }
+    .truck-icon.active {
+      display: block;
+    }
+    .progress-line {
+      position: absolute;
+      top: 1.75rem;
+      left: 10%;
+      right: 10%;
+      height: 0.6rem;
+      background: #e5e7eb;
+      border-radius: 0.3rem;
+      z-index: 0;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(to right, #10b981, #34d399);
+      border-radius: 0.3rem;
+      transition: width 1s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+    <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">Track Your Order</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700 mb-8">
+      <div>
+        <p><strong>Order ID:</strong> #{{ order.id }}</p>
+        <p><strong>Placed on:</strong> {{ order.created_at|date:"F j, Y" }}</p>
+        <p><strong>Estimated Delivery:</strong> {{ order.estimated_delivery|date:"F j, Y" }}</p>
+      </div>
+      <div>
+        <p><strong>Customer:</strong> {{ order.full_name }}</p>
+        <p><strong>Email:</strong> {{ order.email }}</p>
+        <p><strong>Phone:</strong> {{ order.phone }}</p>
+      </div>
+    </div>
+
+    {% if order.order_status == 'delivered' %}
+      <div class="mb-8 p-6 bg-green-100 border border-green-300 rounded-lg text-center shadow-md">
+        <h2 class="text-2xl font-bold text-green-800 mb-2">🎉 Your Order Has Been Delivered!</h2>
+        <p class="text-green-700 text-sm mb-4">We hope you're enjoying your product. Thank you for shopping with us!</p>
+        <p class="text-green-600 font-medium">We look forward to serving you again. Keep exploring for more amazing deals!</p>
+        <div class="mt-4 flex flex-col sm:flex-row justify-center gap-3">
+          <a href="#" onclick="minimizeAndGo()" class="inline-block bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded shadow">Continue Shopping</a>
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="mb-8">
+      <h2 class="text-lg font-semibold mb-3 text-gray-700">Order Status</h2>
+      <div class="progress-container">
+        <div class="progress-line">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="truck-icon" id="truckIcon">
+          <img src="https://www.svgrepo.com/show/499760/delivery-truck.svg" alt="truck" />
+        </div>
+        {% for step in steps %}
+          <div class="progress-step">
+            <div class="progress-circle {% if step.is_active %}bg-green-600 text-white{% else %}bg-gray-300 text-white{% endif %}">
+              {{ forloop.counter }}
+            </div>
+            <div class="gps-marker"></div>
+            <div class="tooltip">{{ step.name|capfirst }}</div>
+            <span class="text-sm mt-2 {% if step.is_active %}text-green-600 font-medium{% else %}text-gray-400{% endif %}">{{ step.name|capfirst }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="mt-10">
+      <h2 class="text-lg font-semibold mb-4 text-gray-700">Ordered Items</h2>
+      <div class="space-y-4">
+        {% for item in order.items.all %}
+          <div class="flex items-center bg-gray-50 p-3 rounded-lg shadow-sm">
+            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-16 h-16 object-cover rounded mr-4">
+            <div>
+              <h3 class="font-medium text-gray-800">{{ item.product.name }}</h3>
+              <p class="text-sm text-gray-600">Qty: {{ item.quantity }}</p>
+              <p class="text-sm text-gray-600">Price: KSh {{ item.price_at_time|floatformat:2 }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="mt-8 border-t pt-4 text-right">
+      <p class="text-sm text-gray-600">Subtotal: <strong>KSh {{ order.total_amount|floatformat:2 }}</strong></p>
+      <p class="text-sm text-gray-600">Delivery Fee:
+        <strong>
+          KSh {% if order.delivery_method == 'standard' %}300.00
+              {% elif order.delivery_method == 'express' %}600.00
+              {% else %}0.00{% endif %}
+        </strong>
+      </p>
+      <p class="text-sm text-gray-600">Discount: <strong>-KSh {{ order.discount_amount|floatformat:2 }}</strong></p>
+      <p class="text-lg font-bold text-gray-800 mt-2">Total: KSh {{ order.total_amount|floatformat:2 }}</p>
+    </div>
+
+    <div class="mt-6 text-center space-x-4">
+      <a href="/delivery-map/" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded shadow">Delivery Map</a>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const steps = document.querySelectorAll('.progress-step');
+      const progressFill = document.getElementById('progressFill');
+      const truck = document.getElementById('truckIcon');
+
+      let activeSteps = 0;
+      steps.forEach(step => {
+        if (step.querySelector('.progress-circle').classList.contains('bg-green-600')) {
+          activeSteps++;
+        }
+      });
+
+      const progressWidth = ((activeSteps - 1) / (steps.length - 1)) * 100;
+      progressFill.style.width = `${progressWidth}%`;
+
+      if ("{{ order.order_status }}" === "shipping") {
+        truck.classList.add('active');
+        const targetStep = steps[Math.min(activeSteps - 1, steps.length - 1)];
+        const targetX = targetStep.offsetLeft + (targetStep.offsetWidth / 2) - 16;
+        truck.style.left = `${targetX}px`;
+      }
+    });
+
+    function minimizeAndGo() {
+  // Save the current tracking URL to localStorage
+  localStorage.setItem("minimizedOrderTab", window.location.href);
+  // Redirect to products page
+  window.location.href = "/products/";
+}
+
+  </script>
+</body>
+</html>

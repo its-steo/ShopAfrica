@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Your Coupon Code</title>
+</head>
+<body style="font-family: Arial, sans-serif; background: #f9f9f9; padding: 20px;">
+    <div style="max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px;">
+        <h2>Hello {{ user.get_full_name|default:user.username }},</h2>
+        <p>Thank you for adding <strong>{{ product.name }}</strong> to your cart.</p>
+        <p>We're offering you a special discount of <strong>{{ discount }}%</strong> on this product!</p>
+        <p>Use the coupon code below at checkout:</p>
+        <h3 style="background: #eee; padding: 10px; text-align: center;">{{ product.coupon_code }}</h3>
+        <p>Just enter the code in the "Coupon Code" field in your cart to apply the discount.</p>
+        <p>Thank you for shopping with us!</p>
+        <p>– ShopAfrica Team</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Order is On the Way!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+      padding: 20px;
+    }
+    .container {
+      background-color: #ffffff;
+      border-radius: 8px;
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .header {
+      text-align: center;
+    }
+    .header h2 {
+      color: #10b981;
+      margin-bottom: 5px;
+    }
+    .tracking-btn {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #10b981;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+    .details {
+      margin-top: 20px;
+    }
+    .details p {
+      margin: 8px 0;
+    }
+    .footer {
+      margin-top: 40px;
+      font-size: 13px;
+      text-align: center;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>🚚 Order #{{ order_id }} is on its way!</h2>
+      <p>Hi {{ full_name }}, your order has just been shipped.</p>
+      <a href="{{ tracking_url }}" class="tracking-btn">Track Your Order</a>
+    </div>
+
+    <div class="details">
+      <h4>What's Next?</h4>
+      <p>👉 Your order is now in transit and will arrive by <strong>{{ estimated_delivery }}</strong>.</p>
+      <p>👉 You’ll receive another update once it’s delivered.</p>
+    </div>
+
+    <div class="footer">
+      &copy; {{ year }} ShopEase. All rights reserved.
+    </div>
+  </div>
+</body>
+</html>

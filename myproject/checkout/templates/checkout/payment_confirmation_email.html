@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8fafc;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      max-width: 600px;
+      margin: auto;
+    }
+    .header {
+      font-size: 20px;
+      font-weight: bold;
+      color: #10b981;
+      margin-bottom: 16px;
+    }
+    .content {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .footer {
+      margin-top: 24px;
+      font-size: 14px;
+      color: #999;
+    }
+    .highlight {
+      color: #2563eb;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">🧾 Payment Received - Order #{{ order.id }}</div>
+    <div class="content">
+      <p>Dear {{ order.full_name }},</p>
+      <p>We have successfully received your payment for <strong>Order #{{ order.id }}</strong>.</p>
+      <p>Your order is now being <span class="highlight">processed</span> and will be shipped soon.</p>
+      <p>We appreciate your business with <strong>ShopEase</strong>!</p>
+    </div>
+    <div class="footer">
+      If you have any questions, contact us at {{ support_email }}.<br>
+      — ShopEase Team
+    </div>
+  </div>
+</body>
+</html>
+
