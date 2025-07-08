@@ -34,7 +34,7 @@ SECRET_KEY = 'django-insecure-mo)3e9^30qgxo36rq#@&tf1wvm%uh(b+-y)(%5pkd+#jkk9=)x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS =  ['shopafrica-1.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
