@@ -36,6 +36,11 @@ DEBUG = True
 
 ALLOWED_HOSTS =  ['shopafrica-1.onrender.com', 'localhost', '127.0.0.1']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://shopafrica-1.onrender.com',
+]
+
+
 
 # Application definition
 
