@@ -9,7 +9,6 @@ import time
 from .forms import RegisterForm
 from django.template.loader import render_to_string
 
-@login_required
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
