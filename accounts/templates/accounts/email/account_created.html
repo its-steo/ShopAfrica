@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to ShopEase</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      padding: 30px;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+    h2 {
+      color: #007bff;
+    }
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #888;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome to ShopEase, {{ user.username }}!</h2>
+    <p>We're excited to have you on board.</p>
+    <p>Your account was created successfully. You can now log in and start exploring our amazing products and deals!</p>
+    <p>If you have any questions, feel free to reply to this email.</p>
+    <p>Happy shopping! 🛍️</p>
+    <div class="footer">
+      &copy; {{ now|date:"Y" }} ShopEase. All rights reserved.
+    </div>
+  </div>
+</body>
+</html>

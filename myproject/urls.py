@@ -34,6 +34,8 @@ urlpatterns = [
     path('products/quick-view/<int:product_id>/', products_views.quick_view_partial, name='quick_view_partial'),
     path('subscribe/', products_views.subscribe_newsletter, name='subscribe_newsletter'),
     path('checkout/', include('checkout.urls', namespace='checkout')),
+    #path('accounts/', include('allauth.urls')), 
+    path('', include('accounts.urls')),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,9 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register - ShopEase</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     * {
       box-sizing: border-box;
@@ -13,53 +15,96 @@
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #d9e8ff, #f0faff);
+      background: linear-gradient(-45deg, #d9e8ff, #f0faff, #e0f7ff, #c9ecff);
+      background-size: 400% 400%;
+      animation: gradientShift 10s ease infinite;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       padding: 20px;
-      animation: fadeIn 1.2s ease-in-out;
     }
 
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .register-container {
-      background: white;
-      padding: 30px 40px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 35px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
       width: 100%;
       max-width: 450px;
       text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .register-container img {
-      width: 80px;
-      margin-bottom: 10px;
+      width: 140px;
+      margin-bottom: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .register-container img:hover {
+      transform: scale(1.05);
     }
 
     .register-container h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
       color: #007bff;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      letter-spacing: 0.5px;
     }
 
     form {
       display: flex;
       flex-direction: column;
       gap: 15px;
+      animation: slideUp 0.6s ease;
     }
 
-    .input {
-      padding: 12px;
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .input-icon {
+      position: relative;
+    }
+
+    .input-icon i {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: #aaa;
+    }
+
+    .input-icon input {
+      width: 100%;
+      padding: 12px 12px 12px 38px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      outline: none;
       font-size: 16px;
-      width: 100%;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-icon input:focus {
+      border-color: #007bff;
     }
 
     button[type="submit"] {
@@ -70,32 +115,37 @@
       font-size: 16px;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     button[type="submit"]:hover {
       background-color: #0056b3;
+      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
     }
 
     .social-register {
+      margin-top: 25px;
       display: flex;
       flex-direction: column;
-      margin-top: 20px;
+      gap: 12px;
     }
 
     .social-register a {
-      text-align: center;
-      margin: 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 10px;
       text-decoration: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-weight: bold;
       color: white;
+      font-size: 15px;
+      gap: 10px;
       transition: transform 0.2s ease;
     }
 
     .social-register a:hover {
-      transform: scale(1.02);
+      transform: scale(1.03);
     }
 
     .google {
@@ -108,7 +158,7 @@
 
     p {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 25px;
       font-size: 14px;
     }
 
@@ -124,46 +174,70 @@
     @media (max-width: 480px) {
       .register-container {
         padding: 25px 20px;
-        border-radius: 10px;
+        border-radius: 12px;
       }
 
       h1 {
-        font-size: 24px;
+        font-size: 1.8rem;
       }
     }
   </style>
 </head>
 <body>
+  
   <div class="register-container">
-    <!-- Image -->
-    <img src="images" alt="ShopEase Logo">
+    <!-- Logo Image -->
+    <img src="{% static 'images/regesterimage.png' %}" alt="ShopEase Logo">
 
     <!-- Title -->
-    <h1>ShopEase</h1>
-
+    <h1>ShopEase</h1><!-- Success Message (Inside Form Box) -->
+     {% if messages %}
+       <div style="background-color: #d4edda; color: #155724; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-weight: 500; text-align: left;">
+         {% for message in messages %}
+           {{ message }}
+         {% endfor %}
+       </div>
+     {% endif %}
+     
     <!-- Registration Form -->
     <form method="POST">
       {% csrf_token %}
 
       {{ form.username.errors }}
-      {{ form.username }}
+      <div class="input-icon">
+        <i class="fas fa-user"></i>
+        {{ form.username }}
+      </div>
 
       {{ form.email.errors }}
-      {{ form.email }}
+      <div class="input-icon">
+        <i class="fas fa-envelope"></i>
+        {{ form.email }}
+      </div>
 
       {{ form.password.errors }}
-      {{ form.password }}
+      <div class="input-icon">
+        <i class="fas fa-lock"></i>
+        {{ form.password }}
+      </div>
 
       <button type="submit">Register</button>
     </form>
 
     <!-- Social Register -->
     <div class="social-register">
-      <a href="#" class="google">Register with Google</a>
-      <a href="#" class="facebook">Register with Facebook</a>
+      <a href="#" class="google"><i class="fab fa-google"></i> Register with Google</a>
+      <a href="#" class="facebook"><i class="fab fa-facebook-f"></i> Register with Facebook</a>
     </div>
 
     <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
   </div>
 </body>
 </html>
+{% if redirect_to_login %}
+  <script>
+    setTimeout(function() {
+      window.location.href = "{% url 'login' %}";
+    }, 3000); // redirect after 3 seconds
+  </script>
+{% endif %}
