@@ -1,10 +1,11 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- important for responsiveness -->
-  <title>Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - ShopEase</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <style>
     * {
       box-sizing: border-box;
@@ -14,7 +15,9 @@
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #d9e8ff, #f0faff);
+      background: linear-gradient(-45deg, #d9e8ff, #f0faff, #e0f7ff, #c9ecff);
+      background-size: 400% 400%;
+      animation: gradientShift 10s ease infinite;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -22,40 +25,88 @@
       padding: 20px;
     }
 
-    .login-container {
-      background: white;
-      padding: 30px 40px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 400px;
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    h2 {
+    .login-container {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 35px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px;
       text-align: center;
-      color: #333;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-container img {
+      width: 200px;
+      height: 160px;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .login-container img:hover {
+      transform: scale(1.05);
+    }
+
+    .login-container h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #007bff;
       margin-bottom: 25px;
-      font-size: 40px;
     }
 
     form {
       display: flex;
       flex-direction: column;
+      gap: 15px;
+      animation: slideUp 0.6s ease;
     }
 
-    input[type="text"],
-    input[type="password"],
-    input[type="email"] {
-      padding: 12px;
-      margin-bottom: 15px;
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .input-icon {
+      position: relative;
+    }
+
+    .input-icon i {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: #aaa;
+    }
+
+    .input-icon input {
+      width: 100%;
+      padding: 12px 12px 12px 38px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      outline: none;
       font-size: 16px;
-      width: 100%;
+      outline: none;
     }
 
-    button {
+    .input-icon input:focus {
+      border-color: #007bff;
+    }
+
+    button[type="submit"] {
       background-color: #007bff;
       color: white;
       border: none;
@@ -63,42 +114,62 @@
       font-size: 16px;
       border-radius: 8px;
       cursor: pointer;
-      transition: 0.3s;
-      width: 100%;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    button:hover {
+    button[type="submit"]:hover {
       background-color: #0056b3;
+      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
     }
 
     .social-login {
+      margin-top: 25px;
       display: flex;
       flex-direction: column;
-      margin-top: 20px;
+      gap: 12px;
     }
 
     .social-login a {
-      text-align: center;
-      margin: 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 10px;
       text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-      color: white;
-      width: 100%;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      gap: 12px;
+      transition: transform 0.2s ease;
+    }
+
+    .social-login a:hover {
+      transform: scale(1.03);
     }
 
     .google {
-      background-color: #db4437;
+      background-color: #f5f5f5;
+      color: #5f6368;
+      border: 1px solid #ddd;
+    }
+
+    .google svg {
+      width: 20px;
+      height: 20px;
     }
 
     .facebook {
       background-color: #3b5998;
+      color: white;
+      border: none;
+    }
+
+    .facebook i {
+      font-size: 18px;
     }
 
     p {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 25px;
       font-size: 14px;
     }
 
@@ -111,50 +182,67 @@
       text-decoration: underline;
     }
 
-    /* Responsive Design */
     @media (max-width: 480px) {
       .login-container {
-        padding: 20px;
-        border-radius: 10px;
+        padding: 25px 20px;
+        border-radius: 12px;
       }
 
-      h2 {
-        font-size: 22px;
-      }
-
-      input, button, .social-login a {
-        font-size: 15px;
-        padding: 10px;
+      h1 {
+        font-size: 1.8rem;
       }
     }
   </style>
 </head>
 <body>
+
   <div class="login-container">
-    <h2>Login</h2>
+    <img src="{% static 'images/image41.png' %}" alt="ShopEase Logo">
+    <h1>Welcome Back</h1>
+
+    {% if messages %}
+      <div style="background-color: #e0f7ff; color: #155724; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-weight: 500; text-align: left;">
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
     <form method="POST">
       {% csrf_token %}
+      {{ form.username.errors }}
+      <div class="input-icon">
+        <i class="fas fa-user"></i>
+        {{ form.username }}
+      </div>
 
-     <div>
-       {{ form.username.errors }}
-       {{ form.username }}
-     </div>
-
-     <div>
-       {{ form.password.errors }}
-       {{ form.password }}
-     </div>
+      {{ form.password.errors }}
+      <div class="input-icon">
+        <i class="fas fa-lock"></i>
+        {{ form.password }}
+      </div>
 
       <button type="submit">Login</button>
     </form>
 
     <div class="social-login">
-      <a href="#" class="google">Login with Google</a>
-      <a href="#" class="facebook">Login with Facebook</a>
+      <a href="#" class="google">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+          <path fill="#EA4335" d="M24 9.5c3.14 0 5.96 1.15 8.18 3.03l6.1-6.1C34.21 2.62 29.4 0 24 0 14.84 0 7.25 6.12 3.9 14.53l7.1 5.51C12.55 14.17 17.88 9.5 24 9.5z"/>
+          <path fill="#34A853" d="M46.1 24.5c0-1.4-.12-2.76-.35-4.07H24v7.72h12.5c-.54 2.88-2.12 5.3-4.5 6.98l7.1 5.52c4.14-3.81 6.5-9.43 6.5-15.65z"/>
+          <path fill="#4A90E2" d="M10.97 28.98A14.45 14.45 0 019.5 24c0-1.72.31-3.37.86-4.89l-7.1-5.51A24.07 24.07 0 000 24c0 3.77.89 7.33 2.48 10.47l8.49-5.49z"/>
+          <path fill="#FBBC05" d="M24 48c6.48 0 11.93-2.15 15.9-5.82l-7.1-5.52c-2.14 1.45-4.9 2.3-8.8 2.3-6.12 0-11.45-4.67-12.99-10.54l-8.49 5.49C7.25 41.88 14.84 48 24 48z"/>
+        </svg>
+        <span>Login with Google</span>
+      </a>
+
+      <a href="#" class="facebook">
+        <i class="fab fa-facebook-f"></i> Login with Facebook
+      </a>
     </div>
 
     <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
   </div>
+
 </body>
 </html>
-

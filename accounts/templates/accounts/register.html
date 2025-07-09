@@ -34,7 +34,6 @@
     .register-container {
       background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       padding: 35px 40px;
       border-radius: 20px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -50,9 +49,11 @@
     }
 
     .register-container img {
-      width: 140px;
+      width: 200px;
+      height: 160px;
+      object-fit: cover;
       margin-bottom: 20px;
-      border-radius: 15px;
+      border-radius: 20px;
       box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
       transition: transform 0.3s ease;
     }
@@ -66,7 +67,6 @@
       font-weight: 700;
       color: #007bff;
       margin-bottom: 25px;
-      letter-spacing: 0.5px;
     }
 
     form {
@@ -100,7 +100,6 @@
       border-radius: 8px;
       font-size: 16px;
       outline: none;
-      transition: border-color 0.3s ease;
     }
 
     .input-icon input:focus {
@@ -137,10 +136,9 @@
       padding: 10px;
       text-decoration: none;
       border-radius: 8px;
-      font-weight: bold;
-      color: white;
       font-size: 15px;
-      gap: 10px;
+      font-weight: 500;
+      gap: 12px;
       transition: transform 0.2s ease;
     }
 
@@ -149,11 +147,24 @@
     }
 
     .google {
-      background-color: #db4437;
+      background-color: #f5f5f5;
+      color: #5f6368;
+      border: 1px solid #ddd;
+    }
+
+    .google svg {
+      width: 20px;
+      height: 20px;
     }
 
     .facebook {
       background-color: #3b5998;
+      color: white;
+      border: none;
+    }
+
+    .facebook i {
+      font-size: 18px;
     }
 
     p {
@@ -184,25 +195,21 @@
   </style>
 </head>
 <body>
-  
-  <div class="register-container">
-    <!-- Logo Image -->
-    <img src="{% static 'images/regesterimage.png' %}" alt="ShopEase Logo">
 
-    <!-- Title -->
-    <h1>ShopEase</h1><!-- Success Message (Inside Form Box) -->
-     {% if messages %}
-       <div style="background-color: #d4edda; color: #155724; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-weight: 500; text-align: left;">
-         {% for message in messages %}
-           {{ message }}
-         {% endfor %}
-       </div>
-     {% endif %}
-     
-    <!-- Registration Form -->
+  <div class="register-container">
+    <img src="{% static 'images/register.png' %}" alt="ShopEase Logo">
+    <h1>ShopEase</h1>
+
+    {% if messages %}
+      <div style="background-color: #d4edda; color: #155724; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-weight: 500; text-align: left;">
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
     <form method="POST">
       {% csrf_token %}
-
       {{ form.username.errors }}
       <div class="input-icon">
         <i class="fas fa-user"></i>
@@ -224,20 +231,32 @@
       <button type="submit">Register</button>
     </form>
 
-    <!-- Social Register -->
     <div class="social-register">
-      <a href="#" class="google"><i class="fab fa-google"></i> Register with Google</a>
-      <a href="#" class="facebook"><i class="fab fa-facebook-f"></i> Register with Facebook</a>
+      <a href="#" class="google">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+          <path fill="#EA4335" d="M24 9.5c3.14 0 5.96 1.15 8.18 3.03l6.1-6.1C34.21 2.62 29.4 0 24 0 14.84 0 7.25 6.12 3.9 14.53l7.1 5.51C12.55 14.17 17.88 9.5 24 9.5z"/>
+          <path fill="#34A853" d="M46.1 24.5c0-1.4-.12-2.76-.35-4.07H24v7.72h12.5c-.54 2.88-2.12 5.3-4.5 6.98l7.1 5.52c4.14-3.81 6.5-9.43 6.5-15.65z"/>
+          <path fill="#4A90E2" d="M10.97 28.98A14.45 14.45 0 019.5 24c0-1.72.31-3.37.86-4.89l-7.1-5.51A24.07 24.07 0 000 24c0 3.77.89 7.33 2.48 10.47l8.49-5.49z"/>
+          <path fill="#FBBC05" d="M24 48c6.48 0 11.93-2.15 15.9-5.82l-7.1-5.52c-2.14 1.45-4.9 2.3-8.8 2.3-6.12 0-11.45-4.67-12.99-10.54l-8.49 5.49C7.25 41.88 14.84 48 24 48z"/>
+        </svg>
+        <span>Sign up with Google</span>
+      </a>
+
+      <a href="#" class="facebook">
+        <i class="fab fa-facebook-f"></i> Register with Facebook
+      </a>
     </div>
 
     <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
   </div>
+
 </body>
 </html>
+
 {% if redirect_to_login %}
-  <script>
-    setTimeout(function() {
-      window.location.href = "{% url 'login' %}";
-    }, 3000); // redirect after 3 seconds
-  </script>
+<script>
+  setTimeout(function() {
+    window.location.href = "{% url 'login' %}";
+  }, 3000);
+</script>
 {% endif %}
