@@ -15,7 +15,8 @@ dependencies = [
     "asgiref (==3.8.1)",
     "mysqlclient (==2.2.7)",
     "sqlparse (==0.5.3)",
-    "tzdata (==2025.2)"
+    "tzdata (==2025.2)",
+    "django-allauth (>=65.9.0,<66.0.0)"
 ]
 
 
