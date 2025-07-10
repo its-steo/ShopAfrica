@@ -60,7 +60,7 @@ def logout_view(request):
     return redirect('login')
 
 def cart_view(request):
-    return render('accounts/cart.html')
+    return render(request,'accounts/cart.html')
 
 @login_required
 def home(request):

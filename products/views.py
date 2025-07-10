@@ -29,23 +29,29 @@ def subscribe_newsletter(request):
 
 # products/views.py
 
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from .models import Product
-from django.db.models import Q
+
+# ✅ Add this helper if missing
+def get_cart_count(request):
+    cart = request.session.get('cart', {})
+    return sum(item['quantity'] for item in cart.values())
 
 def product_list(request):
-    query = request.GET.get('q')
+    query = request.GET.get('q', '')
     products = Product.objects.all()
 
     if query:
-        products = products.filter(
-            Q(name__icontains=query) |
-            Q(description__icontains=query)
-        )
+        products = products.filter(name__icontains=query)
+
+    paginator = Paginator(products, 20)  # Show 20 products per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     return render(request, 'products.html', {
-        'products': products,
-         
+        'products': page_obj,
+        'cart_count': get_cart_count(request),
     })
 
 

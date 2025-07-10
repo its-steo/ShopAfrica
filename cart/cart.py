@@ -140,3 +140,10 @@ class Cart:
         formatted_date = delivery_date.strftime('%A, %d %B')
         print(f"Estimated delivery: {formatted_date}")
         return formatted_date
+
+    def count(self):
+        """Return total quantity of items in the cart."""
+        total_count = CartItem.objects.filter(cart=self.cart).aggregate(total=Sum('quantity'))['total'] or 0
+        print(f"Cart count for cart {self.cart.id}: {total_count}")
+        return total_count
+    

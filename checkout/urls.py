@@ -12,7 +12,8 @@ urlpatterns = [
     path('track-order/<int:order_id>/', views.track_order_view, name='track_order'),
     path('order-cancel/<int:order_id>/', views.cancel_order_view, name='cancel_order'),
     path('continue-shopping/', views.clear_session_and_redirect, name='clear_session_and_redirect'),
-
+    path('order-history/', views.order_history_view, name='order_history'),
+    path('order/<int:order_id>/', views.order_detail_view, name='order_detail'),
 
    
 

@@ -5,7 +5,10 @@ from django.conf import settings
 from django.utils import timezone
 from django.template.loader import render_to_string
 from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.decorators.http import require_POST
+from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 from decimal import Decimal
 from datetime import timedelta
 
@@ -14,8 +17,6 @@ from .forms import PaymentForm
 from cart.cart import Cart
 from cart.models import Cart as CartModel, CartItem
 from products.models import Product
-from django.views.decorators.http import require_POST
-from django.views.decorators.csrf import csrf_protect
 
 
 def checkout_view(request):
@@ -24,8 +25,8 @@ def checkout_view(request):
     subtotal = Decimal(str(cart.get_subtotal_price()))
     discount_amount = Decimal(str(cart.get_discount()))
     coupon_code = request.session.get('coupon_code')
-
     delivery_method = request.session.get('delivery_method', 'standard')
+
     delivery_fee = {
         'standard': Decimal('300.00'),
         'express': Decimal('600.00'),
@@ -221,7 +222,7 @@ def order_successful(request, order_id):
 
     return render(request, 'checkout/order_successful.html', {
         'order': order,
-        'subtotal': order.total_amount,  # You can update to actual subtotal if needed
+        'subtotal': order.total_amount,
         'discount': order.discount_amount,
         'delivery_fee': 0,
         'total_price': order.total_amount,
@@ -250,7 +251,6 @@ def track_order_view(request, order_id):
     })
 
 
-
 def test_email_view(request):
     send_mail(
         subject='Test Email from ShopAfrica',
@@ -262,15 +262,14 @@ def test_email_view(request):
     return HttpResponse("Test email sent.")
 
 
-csrf_protect
+@csrf_protect
 def cancel_order_view(request, order_id):
     order = get_object_or_404(Order, id=order_id)
 
-    if order.order_status in ['pending',]:
+    if order.order_status in ['pending']:
         order.order_status = 'cancelled'
         order.save()
 
-        # Send cancellation email
         try:
             send_mail(
                 subject=f"Order #{order.id} Cancelled",
@@ -286,8 +285,33 @@ def cancel_order_view(request, order_id):
 
     return redirect('checkout:order_success', order_id=order.id)
 
+
 def clear_session_and_redirect(request):
     request.session.pop('cart', None)
     request.session.pop('coupon', None)
     request.session.modified = True
-    return redirect('products') 
+    return redirect('products')
+
+
+@login_required
+def order_history_view(request):
+    orders_qs = Order.objects.filter(user=request.user).order_by('-created_at')
+    for order in orders_qs:
+        order.total = order.get_total_cost() if hasattr(order, 'get_total_cost') else order.total_amount
+
+    paginator = Paginator(orders_qs, 5)
+    page_number = request.GET.get('page')
+    orders = paginator.get_page(page_number)
+
+    return render(request, 'checkout/order_history.html', {'orders': orders})
+
+
+@login_required
+def order_detail_view(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    items = order.items.all()
+
+    return render(request, 'checkout/order_detail.html', {
+        'order': order,
+        'items': items,
+    })
