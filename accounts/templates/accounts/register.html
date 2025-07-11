@@ -1,4 +1,6 @@
 {% load static %}
+{% load socialaccount %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -232,7 +234,7 @@
     </form>
 
     <div class="social-register">
-      <a href="#" class="google">
+      <a href="{% provider_login_url 'google' %}" class="google">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
           <path fill="#EA4335" d="M24 9.5c3.14 0 5.96 1.15 8.18 3.03l6.1-6.1C34.21 2.62 29.4 0 24 0 14.84 0 7.25 6.12 3.9 14.53l7.1 5.51C12.55 14.17 17.88 9.5 24 9.5z"/>
           <path fill="#34A853" d="M46.1 24.5c0-1.4-.12-2.76-.35-4.07H24v7.72h12.5c-.54 2.88-2.12 5.3-4.5 6.98l7.1 5.52c4.14-3.81 6.5-9.43 6.5-15.65z"/>

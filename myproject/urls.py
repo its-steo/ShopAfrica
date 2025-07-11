@@ -37,6 +37,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')), 
     path('', include('accounts.urls')),
     path('checkout/', include('checkout.urls')),
+    path('', lambda request: redirect('home', permanent=False)),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
